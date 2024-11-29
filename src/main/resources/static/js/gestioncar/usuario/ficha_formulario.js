@@ -955,29 +955,47 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-function valida_tipocar(){
-    var tipoCarRadios = document.getElementById("tipo_car_c");
-  
-  
-    
-    if (tipoCarRadios.checked) {
-      
-          var radios = document.querySelectorAll('.check_p1_3');
-        radios.forEach(function (radio) {
-           radio.disabled = false;
-        });
-        
-       
-        
-    } else {
-       
-         var radios = document.querySelectorAll('.check_p1_3');
-        radios.forEach(function (radio) {
+function valida_tipocar() {
+    // Obtener la opción seleccionada del grupo tipo_car
+    const tipoCarSeleccionado = document.querySelector('input[name="tipo_car"]:checked')?.value;
+
+    // Obtener todos los radio buttons dentro de .rowTipoCar
+    const radiosTipoCar = document.querySelectorAll('.rowTipoCar .form-check-input');
+
+    // Recorrer los radio buttons y actualizar según la opción seleccionada
+    radiosTipoCar.forEach(radio => {
+        if (tipoCarSeleccionado === 'c') {
+            // Habilitar y agregar atributo required
+            radio.disabled = false;
+            radio.required = true;
+        } else {
+            // Deshabilitar, quitar atributo required y deseleccionar
             radio.disabled = true;
+            radio.required = false;
             radio.checked = false;
-        });
-       
-}
+
+            // Si es el textarea adicional, también deshabilitar y limpiar
+            if (radio.id === 'perfil_car_i') {
+                const textareaOtros = document.getElementById('perfil_car_otros');
+                if (textareaOtros) {
+                    textareaOtros.disabled = true;
+                    textareaOtros.value = ''; // Limpiar texto
+                }
+            }
+        }
+    });
+
+    // Control específico para el textarea cuando perfil_car == 'i'
+    const perfilCarOtros = document.getElementById('perfil_car_otros');
+    if (perfilCarOtros) {
+        const perfilCarI = document.getElementById('perfil_car_i');
+        if (perfilCarI?.checked) {
+            perfilCarOtros.disabled = false;
+        } else {
+            perfilCarOtros.disabled = true;
+            perfilCarOtros.value = ''; // Limpiar texto
+        }
+    }
 }
 
 

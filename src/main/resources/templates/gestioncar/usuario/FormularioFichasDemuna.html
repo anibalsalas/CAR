@@ -188,7 +188,6 @@ and open the template in the editor.
                                             <br/>
                                             <div>
                                              <!--   <input type="hidden" id="id_ficha" th:field="*{id_ficha}" th:value="0" />-->
-
                                                 <input type="hidden" id="id_ficha" th:field="*{id_ficha}"/>
                                               <!--  <input type="hidden" id="tipo_ficha" th:field="*{tipo_ficha}"/>-->
                                                 <input type="hidden" id="codi_depe_tde" th:field="*{codi_depe_tde}"/>
@@ -223,7 +222,7 @@ and open the template in the editor.
                                             </div>
                                            
                                             <div id="div_validar_ficha_pca" th:fragment="data_validar_ficha_pca">
-                                                <div th:if="${session.rol_usuario.equals('ROL_ESPECIALISTA')}"
+                                                <div th:if="${session.rol_especialista.equals('ROL_ESPECIALISTA')}"
                                                      th:class="${ficha.flag_validar == null ? 'alert alert-secondary' : (ficha.flag_validar == '0' ? 'alert alert-danger' : (ficha.flag_validar == '1' ? 'alert alert-warning' : (ficha.estado != null && ficha.estado.equals('C') ? 'alert alert-success' : 'alert alert-warning')))}"
                                                      role="alert">
                                                     <h4 class="alert-heading" style="font-weight: bold"
@@ -237,7 +236,8 @@ and open the template in the editor.
                                                 </div>
                                             </div>  
                                           
-                                    
+                                            
+                                            
                     <div class="accordion" id="accordionPanelsStayOpenExample">
                         <div class="accordion-item" th:if="${session.rol_usuario.equals('ROL_COMISIONADO')}">
                             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -544,11 +544,11 @@ and open the template in the editor.
 
                                                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                                                     <div class="form-check form-check-inline">
-                                                                                        <input  class="form-check-input" type="radio"  id="tipo_car_a" name="tipo_car" value="a" th:field="*{tipo_car}"  />
+                                                                                        <input  class="form-check-input" type="radio"  id="tipo_car_a" name="tipo_car" value="a" th:field="*{tipo_car}"  th:onchange="valida_tipocar()" />
                                                                                         <label class="form-check-label" for="tipo_car_a">a. CAR de Urgencia</label>
                                                                                     </div>
                                                                                     <div class="form-check form-check-inline">
-                                                                                        <input  class="form-check-input" type="radio"  id="tipo_car_b" name="tipo_car" value="b" th:field="*{tipo_car}" />
+                                                                                        <input  class="form-check-input" type="radio"  id="tipo_car_b" name="tipo_car" value="b" th:field="*{tipo_car}"  th:onchange="valida_tipocar()" />
                                                                                         <label class="form-check-label" for="tipo_car_b">b. CAR Básico</label>
                                                                                     </div>
                                                                                     <div class="form-check form-check-inline">
@@ -561,23 +561,25 @@ and open the template in the editor.
                                                                             </div>
                                                                        </div>
                                                                 
-                                                                <div class="row" >
+                                                                <div class="row rowTipoCar" >
                                                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                                     <div class="row mb-3">
                                                                         <label for="p6_4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-form-label pt-0"> En caso sea un CAR Especializado, precisal cuál es el perfil de acuerdo a su acreditación o plan de acreditación:   
                                                                         </label>
                                                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                                             <div class="form-check">
-                                                                                <input  class="form-check-input check_p1_3" type="radio" id="perfil_car_a" th:field="*{perfil_car}" value="a"
-                                                                                    th:required="${perfil_car == null}" th:disabled="${tipo_car == 'c' ? 'false' : 'true'}" />
+                                                                                <input th:disabled="${tipo_car == 'c' ? 'false' : 'true'}"
+                                                                                    class="form-check-input check_p1_3" type="radio" id="perfil_car_a" th:field="*{perfil_car}" value="a"
+                                                                                     />
                                                                                 <label class="form-check-label" for="perfil_car_a">
                                                                                     1. Discapacidad severa 
 
                                                                                 </label>
                                                                             </div>
                                                                             <div class="form-check">
-                                                                                <input class="form-check-input check_p1_3" type="radio" id="perfil_car_b" th:field="*{perfil_car}" value="b"
-                                                                                     th:required="${perfil_car == null}" th:disabled="${tipo_car == 'c' ? 'false' : 'true'}" />
+                                                                                <input th:disabled="${tipo_car == 'c' ? 'false' : 'true'}"
+                                                                                    class="form-check-input check_p1_3" type="radio" id="perfil_car_b" th:field="*{perfil_car}" value="b"
+                                                                                       />
                                                                                 <label class="form-check-label" for="perfil_car_b">
                                                                                     2. Víctimas de trata de personas 
 
@@ -585,7 +587,7 @@ and open the template in the editor.
                                                                             </div>
                                                                             <div class="form-check">
                                                                                 <input class="form-check-input check_p1_3" type="radio" id="perfil_car_c" th:field="*{perfil_car}" value="c"
-                                                                                        th:required="${perfil_car == null}" th:disabled="${tipo_car == 'c' ? 'false' : 'true'}"  />
+                                                                                       th:disabled="${tipo_car == 'c' ? 'false' : 'true'}" />
                                                                                 <label class="form-check-label" for="perfil_car_c">
                                                                                     3.  Enfermedades de salud mental 
                                                                                 </label>
@@ -593,7 +595,7 @@ and open the template in the editor.
 
                                                                             <div class="form-check">
                                                                                 <input class="form-check-input check_p1_3" type="radio" id="perfil_car_d" th:field="*{perfil_car}" value="d"
-                                                                                     th:required="${perfil_car == null}" th:disabled="${tipo_car == 'c' ? 'false' : 'true'}"  />
+                                                                                     th:disabled="${tipo_car == 'c' ? 'false' : 'true'}"  />
                                                                                 <label class="form-check-label" for="perfil_car_d">
                                                                                     4. Víctimas de violencia sexual 
 
@@ -601,7 +603,7 @@ and open the template in the editor.
                                                                             </div>
                                                                             <div class="form-check">
                                                                                 <input  class="form-check-input check_p1_3" type="radio" id="perfil_car_e" th:field="*{perfil_car}" value="e"
-                                                                                     th:required="${perfil_car == null}" th:disabled="${tipo_car == 'c' ? 'false' : 'true'}" />
+                                                                                      th:disabled="${tipo_car == 'c' ? 'false' : 'true'}" />
                                                                                 <label class="form-check-label" for="perfil_car_e">
                                                                                     5. Gestantes y madres adolescentes 
 
@@ -609,7 +611,7 @@ and open the template in the editor.
                                                                             </div>
                                                                             <div class="form-check">
                                                                                 <input class="form-check-input check_p1_3" type="radio" id="perfil_car_f" th:field="*{perfil_car}" value="f"
-                                                                                       th:required="${perfil_car == null}"  th:disabled="${tipo_car == 'c' ? 'false' : 'true'}"  />
+                                                                                      th:disabled="${tipo_car == 'c' ? 'false' : 'true'}"/>
                                                                                 <label class="form-check-label" for="perfil_car_f">
                                                                                     6. Consumo de drogas, alcoholismo o fármacos
 
@@ -618,7 +620,7 @@ and open the template in the editor.
                                                                             </div>
                                                                             <div class="form-check">
                                                                                 <input class="form-check-input check_p1_3" type="radio" id="perfil_car_g" th:field="*{perfil_car}" value="g"
-                                                                                       th:required="${perfil_car == null}"  th:disabled="${tipo_car == 'c' ? 'false' : 'true'}" />
+                                                                                        th:disabled="${tipo_car == 'c' ? 'false' : 'true'}" />
                                                                                 <label class="form-check-label" for="perfil_car_g">
                                                                                     7.   Personas que viven con VIH/Sida 
 
@@ -627,7 +629,7 @@ and open the template in the editor.
                                                                             </div>
                                                                             <div class="form-check">
                                                                                 <input class="form-check-input check_p1_3" type="radio" id="perfil_car_h" th:field="*{perfil_car}" value="h"
-                                                                                       th:required="${perfil_car == null}"  th:disabled="${tipo_car == 'c' ? 'false' : 'true'}" />
+                                                                                        th:disabled="${tipo_car == 'c' ? 'false' : 'true'}" />
                                                                                 <label class="form-check-label" for="perfil_car_h">
                                                                                     8.  Experiencia de vida en calle
                                                                                 </label>
@@ -635,7 +637,7 @@ and open the template in the editor.
                                                                             
                                                                             <div class="form-check">
                                                                                 <input  class="form-check-input check_p1_3" type="radio" id="perfil_car_i" th:field="*{perfil_car}" value="i"
-                                                                                        th:required="${perfil_car == null}" th:disabled="${tipo_car == 'c' ? 'false' : 'true'}"  />
+                                                                                        th:disabled="${tipo_car == 'c' ? 'false' : 'true'}"  />
                                                                                 <label class="form-check-label" for="perfil_car_i">
                                                                                     9.   Otras situaciones que requieren atención especializada
                                                                                 </label>
@@ -677,7 +679,7 @@ and open the template in the editor.
                                                                                 <i class="fa fa-cloud-upload" aria-hidden="true"></i> Guardado parcial
                                                                             </button>
                                                                         </div>
-                                                                        <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA'}">
+                                                                        <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}">
                                                                             <div id="div_sec_1_alert_validado" th:fragment="data_sec_1_alert_validado">
                                                                                 <div>
                                                                                     <button id="btn_validar_sec_1" class="btn btn-warning btn_validar_parcial" type="button" name="btn_validar_sec_1" onclick="validar_parcial(this)">
@@ -685,7 +687,7 @@ and open the template in the editor.
                                                                                     </button>
                                                                                 </div>
 
-                                                                                <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
+                                                                                <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
                                                                                     <div  class="alert alert-success" role="alert" th:if="${ficha.estado_s1 != null && ficha.estado_s1.equals('1')}">
                                                                                         <h4 class="alert-heading" style="font-weight: bold">Secci&oacute;n validada!</h4>
                                                                                     </div></div>
@@ -711,7 +713,7 @@ and open the template in the editor.
 
                                                         <div class="accordion-body">
                                                             
-                                                            <input type="hidden" id="id_sec_1" th:field="*{car_ficha_s1.id_ficha_s1}"/>
+                                                            <input type="hidden" id="id_sec_1x" th:field="*{car_ficha_s1.id_ficha_s1}"/>
                                                             <input type="hidden" th:field="*{car_ficha_s1.id_ficha}"/>
                                                             <input type="hidden" th:field="*{car_ficha_s1.usu_registro}"/>
                                                             <input type="hidden" th:field="*{car_ficha_s1.fch_registro}"/>
@@ -1247,16 +1249,16 @@ and open the template in the editor.
                                                                                                 <i class="fa fa-cloud-upload" aria-hidden="true"></i> Guardado parcial
                                                                                             </button>
                                                                                         </div>
-                                                                                        <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA'}">
-                                                                                            <div id="div_sec_1_alert_validadox" th:fragment="data_sec_1_alert_validadox">
+                                                                                        <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}">
+                                                                                            <div id="div_sec_1x_alert_validado" th:fragment="data_sec_1x_alert_validado">
                                                                                                 <div>
                                                                                                     <button id="btn_validar_sec_1x" class="btn btn-warning btn_validar_parcialx" type="button" name="btn_validar_sec_1x" onclick="validar_parcial(this)">
                                                                                                         <i class="fa fa-cloud-upload" aria-hidden="true"></i> Validado parcial
                                                                                                     </button>
                                                                                                 </div>
 
-                                                                                                 <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
-                                                                                                <div  class="alert alert-success" role="alert" th:if="${ficha.estado_s1x != null && ficha.estado_s1x.equals('1')}">
+                                                                                                 <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
+                                                                                                <div  class="alert alert-success" role="alert" th:if="${ficha.car_ficha_s1.estado_s1x != null && ficha.car_ficha_s1.estado_s1x.equals('1')}">
                                                                                                     <h4 class="alert-heading" style="font-weight: bold">Secci&oacute;n validada!</h4>
                                                                                                 </div></div>
                                                                                             </div>
@@ -1528,7 +1530,7 @@ and open the template in the editor.
                                                                             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Guardado parcial
                                                                         </button>
                                                                     </div>
-                                                                    <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA'}">
+                                                                    <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}">
                                                                         <div id="div_sec_2_alert_validado" th:fragment="data_sec_2_alert_validado">
                                                                             <div>
                                                                                 <button id="btn_validar_sec_2" class="btn btn-warning btn_validar_parcial" type="button" name="btn_validar_sec_2" onclick="validar_parcial(this)">
@@ -1538,7 +1540,7 @@ and open the template in the editor.
                                                                           
                                                                             <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
 
-                                                                                <div  class="alert alert-success" role="alert" th:if="${ficha.educa_ficha_s2.estado_s2 != null && ficha.educa_ficha_s2.estado_s2.equals('1')}">
+                                                                                <div  class="alert alert-success" role="alert" th:if="${ficha.car_ficha_s2.estado_s2 != null && ficha.car_ficha_s2.estado_s2.equals('1')}">
                                                                                     <h4 class="alert-heading" style="font-weight: bold">Secci&oacute;n validada!</h4>
                                                                                 </div>
                                                                             </div>
@@ -2426,7 +2428,7 @@ and open the template in the editor.
                                                                             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Guardado parcial
                                                                         </button>
                                                                     </div>
-                                                                    <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA'}">
+                                                                    <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}">
                                                                         <div id="div_sec_3_alert_validado" th:fragment="data_sec_3_alert_validado">
                                                                             <div>
                                                                                 <button id="btn_validar_sec_3" class="btn btn-warning btn_validar_parcial" type="button" name="btn_validar_sec_3" onclick="validar_parcial(this)">
@@ -2435,7 +2437,7 @@ and open the template in the editor.
                                                                             </div>
                                                                           
                                                                             <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
-                                                                                <div  class="alert alert-success" role="alert" th:if="${ficha.educa_ficha_s3.estado_s3 != null && ficha.educa_ficha_s3.estado_s3.equals('1')}">
+                                                                                <div  class="alert alert-success" role="alert" th:if="${ficha.car_ficha_s3.estado_s3 != null && ficha.car_ficha_s3.estado_s3.equals('1')}">
                                                                                     <h4 class="alert-heading" style="font-weight: bold">Secci&oacute;n validada!</h4>
                                                                                 </div>
                                                                             </div>
@@ -2460,7 +2462,7 @@ and open the template in the editor.
 
                                                         <div class="accordion-body">
 
-                                                            <input type="hidden" id="id_sec_5" th:field="*{car_ficha_s4.id_ficha_s4}"/>
+                                                            <input type="hidden" id="id_sec_4" th:field="*{car_ficha_s4.id_ficha_s4}"/>
                                                             <input type="hidden" th:field="*{car_ficha_s4.id_ficha}"/>
                                                             <input type="hidden" th:field="*{car_ficha_s4.usu_registro}"/>
                                                             <input type="hidden" th:field="*{car_ficha_s4.fch_registro}"/>
@@ -2898,7 +2900,7 @@ and open the template in the editor.
                                                                             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Guardado parcial
                                                                         </button>
                                                                     </div>
-                                                                    <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA'}">
+                                                                    <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}">
                                                                         <div id="div_sec_4_alert_validado" th:fragment="data_sec_4_alert_validado">
                                                                             <div>
                                                                                 <button id="btn_validar_sec_4" class="btn btn-warning btn_validar_parcial" type="button" name="btn_validar_sec_4" onclick="validar_parcial(this)">
@@ -2907,7 +2909,7 @@ and open the template in the editor.
                                                                             </div>
 
                                                                             <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
-                                                                                <div  class="alert alert-success" role="alert" th:if="${ficha.educa_ficha_s4.estado_s4 != null && ficha.educa_ficha_s4.estado_s4.equals('1')}">
+                                                                                <div  class="alert alert-success" role="alert" th:if="${ficha.car_ficha_s4.estado_s4 != null && ficha.car_ficha_s4.estado_s4.equals('1')}">
                                                                                     <h4 class="alert-heading" style="font-weight: bold">Secci&oacute;n validada!</h4>
                                                                                 </div>
                                                                             </div> 
@@ -2929,7 +2931,7 @@ and open the template in the editor.
 
                                                         <div class="accordion-body">
 
-                                                            <input type="hidden" id="id_sec_6" th:field="*{car_ficha_s5.id_ficha_s5}"/>
+                                                            <input type="hidden" id="id_sec_5" th:field="*{car_ficha_s5.id_ficha_s5}"/>
                                                             <input type="hidden" th:field="*{car_ficha_s5.id_ficha}"/>
                                                             <input type="hidden" th:field="*{car_ficha_s5.usu_registro}"/>
                                                             <input type="hidden" th:field="*{car_ficha_s5.fch_registro}"/>
@@ -3103,7 +3105,7 @@ and open the template in the editor.
                                                                             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Guardado parcial
                                                                         </button>
                                                                     </div>
-                                                                    <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA'}">
+                                                                    <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}">
                                                                         <div id="div_sec_5_alert_validado" th:fragment="data_sec_5_alert_validado">
                                                                             <div>
                                                                                 <button id="btn_validar_sec_5" class="btn btn-warning btn_validar_parcial" type="button" name="btn_validar_sec_5" onclick="validar_parcial(this)">
@@ -3113,7 +3115,7 @@ and open the template in the editor.
                                                                           
                                                                             
                                                                             <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
-                                                                                <div  class="alert alert-success" role="alert" th:if="${ficha.educa_ficha_s5.estado_s5 != null && ficha.educa_ficha_s5.estado_s5.equals('1')}">
+                                                                                <div  class="alert alert-success" role="alert" th:if="${ficha.car_ficha_s5.estado_s5 != null && ficha.car_ficha_s5.estado_s5.equals('1')}">
                                                                                     <h4 class="alert-heading" style="font-weight: bold">Secci&oacute;n validada!</h4>
                                                                                 </div>
                                                                             </div>
@@ -4048,7 +4050,7 @@ and open the template in the editor.
                                                                             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Guardado parcial
                                                                         </button>
                                                                     </div>
-                                                                    <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA'}">
+                                                                    <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}">
                                                                         <div id="div_sec_6_alert_validado" th:fragment="data_sec_6_alert_validado">
                                                                             <div>
                                                                                 <button id="btn_validar_sec_6" class="btn btn-warning btn_validar_parcial" type="button" name="btn_validar_sec_6" onclick="validar_parcial(this)">
@@ -4057,7 +4059,7 @@ and open the template in the editor.
                                                                             </div>
                                                                           
                                                                             <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
-                                                                           <div  class="alert alert-success" role="alert" th:if="${ficha.educa_ficha_s6.estado_s6 != null && ficha.educa_ficha_s6.estado_s6.equals('1')}">
+                                                                           <div  class="alert alert-success" role="alert" th:if="${ficha.car_ficha_s6.estado_s6 != null && ficha.car_ficha_s6.estado_s6.equals('1')}">
                                                                                 <h4 class="alert-heading" style="font-weight: bold">Secci&oacute;n validada!</h4>
                                                                             </div></div>
                                                                         </div>
@@ -4501,7 +4503,7 @@ and open the template in the editor.
                                                                             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Guardado parcial
                                                                         </button>
                                                                     </div>
-                                                                    <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA'}">
+                                                                    <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}">
                                                                         <div id="div_sec_7_alert_validado" th:fragment="data_sec_7_alert_validado">
                                                                             <div>
                                                                                 <button id="btn_validar_sec_7" class="btn btn-warning btn_validar_parcial" type="button" name="btn_validar_sec_7" onclick="validar_parcial(this)">
@@ -4510,7 +4512,7 @@ and open the template in the editor.
                                                                             </div>
                                                                           
                                                                             <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
-                                                                           <div  class="alert alert-success" role="alert" th:if="${ficha.educa_ficha_s7.estado_s7 != null && ficha.educa_ficha_s7.estado_s7.equals('1')}">
+                                                                           <div  class="alert alert-success" role="alert" th:if="${ficha.car_ficha_s7.estado_s7 != null && ficha.car_ficha_s7.estado_s7.equals('1')}">
                                                                         <h4 class="alert-heading" style="font-weight: bold">Secci&oacute;n validada!</h4>
                                                                     </div></div>
                                                                         </div>
@@ -5564,7 +5566,7 @@ and open the template in the editor.
                                                                             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Guardado parcial
                                                                         </button>
                                                                     </div>
-                                                                    <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA'}">
+                                                                    <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}">
                                                                         <div id="div_sec_8_alert_validado" th:fragment="data_sec_8_alert_validado">
                                                                             <div>
                                                                                 <button id="btn_validar_sec_8" class="btn btn-warning btn_validar_parcial" type="button" name="btn_validar_sec_8" onclick="validar_parcial(this)">
@@ -5573,7 +5575,7 @@ and open the template in the editor.
                                                                             </div>
                                                                           
                                                                             <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
-                                                                           <div  class="alert alert-success" role="alert" th:if="${ficha.educa_ficha_s8.estado_s8 != null && ficha.educa_ficha_s8.estado_s8.equals('1')}">
+                                                                           <div  class="alert alert-success" role="alert" th:if="${ficha.car_ficha_s8.estado_s8 != null && ficha.car_ficha_s8.estado_s8.equals('1')}">
                                                                         <h4 class="alert-heading" style="font-weight: bold">Secci&oacute;n validada!</h4>
                                                                     </div></div>
                                                                         </div>
@@ -5869,7 +5871,7 @@ and open the template in the editor.
                                                                             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Guardado parcial
                                                                         </button>
                                                                     </div>
-                                                                    <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA'}">
+                                                                    <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}">
                                                                         <div id="div_sec_9_alert_validado" th:fragment="data_sec_9_alert_validado">
                                                                             <div>
                                                                                 <button id="btn_validar_sec_9" class="btn btn-warning btn_validar_parcial" type="button" name="btn_validar_sec_9" onclick="validar_parcial(this)">
@@ -5878,7 +5880,7 @@ and open the template in the editor.
                                                                             </div>
                                                                           
                                                                             <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
-                                                                            <div  class="alert alert-success" role="alert" th:if="${ficha.educa_ficha_s9.estado_s9 != null && ficha.educa_ficha_s9.estado_s9.equals('1')}">
+                                                                            <div  class="alert alert-success" role="alert" th:if="${ficha.car_ficha_s9.estado_s9 != null && ficha.car_ficha_s9.estado_s9.equals('1')}">
                                                                                 <h4 class="alert-heading" style="font-weight: bold">Secci&oacute;n validada!</h4>
                                                                             </div>
                                                                             </div>
@@ -11462,7 +11464,7 @@ and open the template in the editor.
                                                                             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Guardado parcial
                                                                         </button>
                                                                     </div>
-                                                                    <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA'}">
+                                                                    <div th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}">
                                                                         <div id="div_sec_10_alert_validado" th:fragment="data_sec_10_alert_validado">
                                                                             <div>
                                                                                 <button id="btn_validar_sec_10" class="btn btn-warning btn_validar_parcial" type="button" name="btn_validar_sec_10" onclick="validar_parcial(this)">
@@ -11471,7 +11473,7 @@ and open the template in the editor.
                                                                             </div>
                                                                           
                                                                             <div th:if="${session.rol_usuario == 'ROL_ESPECIALISTA' || session.rol_usuario == 'ROL_COMISIONADO'}">
-                                                                            <div  class="alert alert-success" role="alert" th:if="${ficha.educa_ficha_s10.estado_s10 != null && ficha.educa_ficha_s10.estado_s10.equals('1')}">
+                                                                            <div  class="alert alert-success" role="alert" th:if="${ficha.car_ficha_s10.estado_s10 != null && ficha.car_ficha_s10.estado_s10.equals('1')}">
                                                                                 <h4 class="alert-heading" style="font-weight: bold">Secci&oacute;n validada!</h4>
                                                                             </div>
                                                                              </div>

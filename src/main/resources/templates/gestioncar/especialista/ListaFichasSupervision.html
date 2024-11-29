@@ -12,7 +12,7 @@ and open the template in the editor.
       layout:decorate="~{fragment/templateIndex}">
 
     <head>
-        <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Supervisi&oacute;n de I.E. con Fichas Registradas</title> 
+        <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Supervisi&oacute;n de CAR con Fichas Registradas</title> 
         <!--Css plusnet -->
         <link rel="stylesheet" th:href="@{/css/plusnet/plusnet.css}" type="text/css"/>
         <!-- Datatables -->
@@ -24,10 +24,10 @@ and open the template in the editor.
     <body>
         <div layout:fragment="content"> 
             <div class="pagetitle">
-                <h1>Supervisi&oacute;n I.E. con fichas registradas</h1>
+                <h1>Supervisi&oacute;n CAR con fichas registradas</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Supervisión de I.E.</li>
+                        <li class="breadcrumb-item">Supervisión de CAR</li>
                         <li class="breadcrumb-item">Monitoreo y supervisi&oacute;n</li>
                         <li class="breadcrumb-item active">Supervisar  fichas registradas</li>
                     </ol>
@@ -96,7 +96,8 @@ and open the template in the editor.
                                             <thead>
                                                 <tr class="table-primary">
                                                     <th style="text-align: center;" >#</th>
-                                                    <th style="text-align: center;" >Editar</th>
+                                                    <th style="text-align: center;" >Editar | Validar</th>
+                                                    <th style="text-align: center;" >Validación</th>
                                                     <th style="text-align: center;" >Estado</th>
                                                     <th style="text-align: center;" >Regi&oacute;n</th>
                                                     <th style="text-align: center;" >Provincia</th>
@@ -116,9 +117,27 @@ and open the template in the editor.
                                                     <td style="text-align: center;vertical-align: middle">
                                                         <span th:text="${row.count}"></span>
                                                     </td>
-                                                    <td style="text-align: center;vertical-align: middle">
-                                                        <a class="btnn" th:href="@{/dp/usuario/ficha/editarFichas(id_ficha=${item.id_ficha})}" title="Editar"> <i class="fa-solid fa-pen-to-square"></i></a>
-                                                      <!--  <a th:if="${item.tipo_ficha.equals('GR')}" class="btnn" th:href="@{/ge/usuario/ficha/editarFichasAutoridad(id_ficha=${item.id_ficha})}" title="Editar"> <i class="fa-solid fa-pen-to-square"></i></a>-->
+                                                  
+
+                                                    
+                                                    <!--td style="text-align: center;vertical-align: middle">
+                                                        <a class="btnn" th:href="@{/dp/usuario/ficha/editarFichas(id_ficha=${item.id_ficha})}" 
+                                                           title="Editar"> <i class="fa-solid fa-pen-to-square"></i></a>
+                                                    </td-->
+                                                    <td style="text-align: center; vertical-align: middle">
+                                                        <a th:if="${session.rol_especialista == 'ROL_ESPECIALISTA'}" 
+                                                           class="btnn" 
+                                                           th:href="@{/dp/usuario/ficha/editarFichaEspecialista(id_ficha=${item.id_ficha})}" 
+                                                           title="Editar">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </a>
+                                                    </td>
+                                                      <td style="text-align: center;vertical-align: middle; width: 3%">
+                                                          <strong><span th:text="${item.txt_flag_validar}" 
+                                                                        th:class="${item.flag_validar == null ? 'badge bg-secondary' : 
+                                                                        (item.flag_validar.equals('0') ? 'badge bg-danger' : 
+                                                                        (item.flag_validar.equals('1') ? 'badge bg-warning text-dark' : 
+                                                                        'badge bg-success'))}"></span></strong>                                                        
                                                     </td>
 
                                                     <td style="text-align: center;vertical-align: middle">
@@ -126,13 +145,13 @@ and open the template in the editor.
                                                         <!--<strong><span th:text="${item.txt_estado_ficha}" th:style="${item.estado_ficha.equals('I') ? 'color:red':'color:green'}"></span></strong>-->
                                                     </td>
                                                     <td style="text-align: left;vertical-align: middle">
-                                                        <span th:text="${item.departamento_educa}"></span>
+                                                        <span th:text="${item.departamento_car}"></span>
                                                     </td>
                                                     <td style="text-align: left;vertical-align: middle">
-                                                        <span th:text="${item.provincia_educa}"></span>
+                                                        <span th:text="${item.provincia_car}"></span>
                                                     </td>
                                                     <td style="text-align: left;vertical-align: middle">
-                                                        <span th:text="${item.distrito_educa}"></span>
+                                                        <span th:text="${item.distrito_car}"></span>
                                                     </td>
                                                  
                                                     <td style="text-align: left;vertical-align: middle">

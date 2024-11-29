@@ -1298,18 +1298,18 @@ public Car_Ficha_S6_P6_1Entity getFicha_S6_1ById(Car_Ficha_S6_P6_1PkEntity car_f
             String estado = "";
            
               if (sumOfStates != null) {
-                if (sumOfStates < 10) {
+                if (sumOfStates < 11) {
                     estado = "1";
                     demuna_FichaRepository.validarFicha("1", usu_valida, id_ficha);
                     
-                     System.out.println("sumOfStates es menor que 9: " + sumOfStates);
-                } else if (sumOfStates == 10) {
+                     System.out.println("sumOfStates es menor que 11: " + sumOfStates);
+                } else if (sumOfStates == 11) {
                     estado = "2";
                     demuna_FichaRepository.validarFicha("2", usu_valida, id_ficha);
-                     System.out.println("sumOfStates es igual a 10: " + sumOfStates);
+                     System.out.println("sumOfStates es igual a 11: " + sumOfStates);
                 } else {
                   
-                    System.out.println("sumOfStates es mayor que 10: " + sumOfStates);
+                    System.out.println("sumOfStates es mayor que 11: " + sumOfStates);
                 }
 
                 ficha.setEstado(estado);

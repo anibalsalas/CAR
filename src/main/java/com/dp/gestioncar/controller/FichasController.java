@@ -877,7 +877,215 @@ String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
     
     
     /////////////////////////////////////////////////////////////////////
-    
+    @RequestMapping(value = "/dp/usuario/ficha/editarFichaEspecialista", method = {RequestMethod.POST, RequestMethod.GET})
+public String editarFichaEspecialista(Model model, @RequestParam("id_ficha") Integer id_ficha, HttpSession httpSession) {
+
+    // Verificar si el usuario tiene el rol "ROL_ESPECIALISTA"
+    String rolEspecialista = (String) httpSession.getAttribute("rol_especialista");
+    if (!"ROL_ESPECIALISTA".equals(rolEspecialista)) {
+        // Redirigir o manejar el caso de acceso denegado
+        return "redirect:/403";
+    }
+     String codi_depe_tde = "";
+        System.out.print("id_ficha: " + id_ficha);
+//        List<ParametroDTO> listarCategoriaEESS = null;
+//        List<ParametroDTO> listarDependenciaEESS = null;
+String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
+
+        List<XubigeoEntity> listaDepartamento = null;
+        List<XubigeoEntity> listaProvincia = null;
+        List<XubigeoEntity> listaDistrito = null;
+        List<Demuna_EstablecimientosEntity> listarEM = null;
+        List<Demuna_EstablecimientosEntity> listaMunicipalidades = null;
+        List<Demuna_ArchivoEntity> listaS7_7_arch = null;
+        List<Demuna_ArchivoEntity> listaS7_10_arch = null; 
+        List<Demuna_ArchivoEntity> listaS8_11_arch = null;
+        List<Demuna_ArchivoEntity> listaS8_13_arch = null;
+        List<Demuna_ArchivoEntity> listaS8_14_arch = null;
+        List<Demuna_ArchivoEntity> listaS9_1_arch = null; 
+        List<Demuna_ArchivoEntity> listaS10_1_6_arch = null;
+        List<Demuna_ArchivoEntity> listaS10_1_7_arch = null;
+        List<Demuna_ArchivoEntity> listaS10_1_10_arch = null;
+        List<Demuna_ArchivoEntity> listaS10_1_12_arch = null;
+        List<Demuna_ArchivoEntity> listaS10_1_16_arch = null;
+        List<Demuna_ArchivoEntity> listaS10_2_arch = null;
+        List<Demuna_ArchivoEntity> listaS10_3_23_arch = null;
+        List<Demuna_ArchivoEntity> listaS10_5_4_arch = null;
+        List<Demuna_ArchivoEntity> listaS10_6_4_arch = null;
+        List<Demuna_ArchivoEntity> listaS10_6_5_arch = null;
+        List<Demuna_ArchivoEntity> listaS10_7_3_arch = null;
+        List<Demuna_ArchivoEntity> listaS10_7_4_arch = null;
+
+
+        Demuna_FichaEntity ficha = null;
+
+        try {
+            ficha = demuna_FichaService.getFichaByIdFicha(id_ficha);
+            String rol_usuario = (String) httpSession.getAttribute("rol_especialista");
+            String usuario_usu = variableSistemaService.userID();
+
+            System.out.println("rol_usuario: " + rol_usuario);
+            if (ficha != null) {
+                System.out.println("ficha: " + ficha);
+                //  String codi_depe_tde = variableSistemaLocalService.dependencia_fisica_personal(usuario_usu);
+                if (rol_usuario.equals(Constantes.ROL_ESPECIALISTA)) {//Comisionado
+                    ficha.setTxt_desc_depe_tde(variableSistemaLocalService.getDependencia(variableSistemaLocalService.dependencia_fisica_personal(usuario_usu)).getDesc_depe_tde());
+                    ficha.setTxt_comisionado(variableSistemaLocalService.getUsuario(usuario_usu).getNomb_cort_usu());
+                    ficha.setFch_supervision(variableSistemaLocalService.getFecha_hora_sistema());
+                }
+
+                System.out.println("ccccc: ");
+       
+                 ficha.setCar_ficha_s1(demuna_FichaService.getFichaS1ByIdFicha(id_ficha));
+                ficha.setCar_ficha_s2(demuna_FichaService.getFichaS2ByIdFicha(id_ficha));
+                ficha.setCar_ficha_s3(demuna_FichaService.getFichaS3ByIdFicha(id_ficha));
+                ficha.setCar_ficha_s4(demuna_FichaService.getFichaS4ByIdFicha(id_ficha));
+                ficha.setCar_ficha_s5(demuna_FichaService.getFichaS5ByIdFicha(id_ficha));
+                ficha.setCar_ficha_s6(demuna_FichaService.getFichaS6ByIdFicha(id_ficha));
+                ficha.setCar_ficha_s7(demuna_FichaService.getFichaS7ByIdFicha(id_ficha));
+                
+                ficha.setCar_ficha_s8(demuna_FichaService.getFichaS8ByIdFicha(id_ficha));
+                ficha.setCar_ficha_s9(demuna_FichaService.getFichaS9ByIdFicha(id_ficha));
+                ficha.setCar_ficha_s10(demuna_FichaService.getFichaS10ByIdFicha(id_ficha));
+                
+//
+               listaS7_7_arch = demuna_FichaService.listarArchivos(id_ficha, "S7_7_ARCH", "S7",ficha.getCod_unico()); 
+               listaS7_10_arch = demuna_FichaService.listarArchivos(id_ficha, "S7_10_ARCH", "S7",ficha.getCod_unico());
+               listaS8_11_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_11_ARCH", "S8",ficha.getCod_unico());
+               listaS8_13_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_13_ARCH", "S8",ficha.getCod_unico());
+               listaS8_14_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_14_ARCH", "S8",ficha.getCod_unico());
+               listaS9_1_arch = demuna_FichaService.listarArchivos(id_ficha, "S9_1_ARCH", "S9",ficha.getCod_unico());
+               listaS10_1_6_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_1_6_ARCH", "S10",ficha.getCod_unico());
+               listaS10_1_7_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_1_7_ARCH", "S10",ficha.getCod_unico());
+               listaS10_1_10_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_1_10_ARCH", "S10",ficha.getCod_unico());
+               listaS10_1_12_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_1_12_ARCH", "S10",ficha.getCod_unico());
+               listaS10_1_16_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_1_16_ARCH", "S10",ficha.getCod_unico());
+               listaS10_2_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_2_ARCH", "S10",ficha.getCod_unico());
+               listaS10_3_23_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_3_23_ARCH", "S10",ficha.getCod_unico());
+               listaS10_5_4_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_5_4_ARCH", "S10",ficha.getCod_unico());
+               listaS10_6_4_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_6_4_ARCH", "S10",ficha.getCod_unico());
+               listaS10_6_5_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_6_5_ARCH", "S10",ficha.getCod_unico());
+               listaS10_7_3_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_7_3_ARCH", "S10",ficha.getCod_unico());
+               listaS10_7_4_arch= demuna_FichaService.listarArchivos(id_ficha, "S10_7_4_ARCH", "S10",ficha.getCod_unico());
+
+                //  ficha.setTipo_ficha(demuna_FichaService.buscarByCodEESS(ficha.getCod_unico()).getTipo_ficha()); //AGREGADO ccortez 20240409
+//            listarDependenciaEESS = educa_FichaService.listarDependenciaEESS();
+//            listarCategoriaEESS = educa_FichaService.listarCategoriaEESS();
+                listaDepartamento = demuna_FichaService.findAllDepartamento();
+                listaProvincia = demuna_FichaService.findAllProvincia(ficha.getCodi_depa_dpt());
+                listaMunicipalidades = demuna_FichaService.findMunicipalidadesByDepartamento(ficha.getCodi_depa_dpt(), ficha.getCodi_prov_tpr());
+                listaDistrito = demuna_FichaService.findAllDistrito(ficha.getCodi_depa_dpt(), ficha.getCodi_prov_tpr());
+                listarEM = demuna_FichaService.listarEM();
+
+            }
+//            }
+        } catch (Exception e) {
+            logger.error("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        if (ficha != null && ficha.getCar_ficha() != null) {
+
+            
+        }
+        model.addAttribute("ficha", ficha);
+//        model.addAttribute("listarDependenciaEESS", listarDependenciaEESS);
+//        model.addAttribute("listarCategoriaEESS", listarCategoriaEESS);
+        model.addAttribute("listaMunicipalidades", listaMunicipalidades);
+        model.addAttribute("listaDepartamento", listaDepartamento);
+        model.addAttribute("listaProvincia", listaProvincia);
+        model.addAttribute("listaDistrito", listaDistrito);
+        model.addAttribute("listarEM", listarEM);
+        
+   
+        model.addAttribute("listaS7_7_arch", listaS7_7_arch);
+        model.addAttribute("listaS7_10_arch", listaS7_10_arch); 
+                
+        model.addAttribute("listaS8_11_arch", listaS8_11_arch);
+        model.addAttribute("listaS8_13_arch", listaS8_13_arch);
+        model.addAttribute("listaS8_14_arch", listaS8_14_arch);
+        model.addAttribute("listaS9_1_arch", listaS9_1_arch); 
+        model.addAttribute("listaS10_1_6_arch", listaS10_1_6_arch); 
+        model.addAttribute("listaS10_1_7_arch", listaS10_1_7_arch);    
+        model.addAttribute("listaS10_1_10_arch", listaS10_1_10_arch);  
+        model.addAttribute("listaS10_1_12_arch", listaS10_1_12_arch);            
+        model.addAttribute("listaS10_1_16_arch", listaS10_1_16_arch);   
+        model.addAttribute("listaS10_2_arch", listaS10_2_arch);
+        model.addAttribute("listaS10_3_23_arch", listaS10_3_23_arch);
+        model.addAttribute("listaS10_5_4_arch", listaS10_5_4_arch);
+        model.addAttribute("listaS10_6_4_arch", listaS10_6_4_arch);
+        model.addAttribute("listaS10_6_5_arch", listaS10_6_5_arch);
+        model.addAttribute("listaS10_7_3_arch", listaS10_7_3_arch);
+        model.addAttribute("listaS10_7_4_arch", listaS10_7_4_arch);
+        model.addAttribute("educa_ficha_s4_3", new Educa_Ficha_S4_3Entity());
+        model.addAttribute("lista_s4_3_preguntas", demuna_FichaService.listarS4_3ByIdFicha(ficha.getId_ficha()));
+        
+         model.addAttribute("educa_ficha_s5_1", new Educa_Ficha_S5_1Entity());
+        model.addAttribute("lista_s5_1_preguntas", demuna_FichaService.listarS5_1ByIdFicha(ficha.getId_ficha()));
+        
+         model.addAttribute("educa_ficha_s5_2", new Educa_Ficha_S5_2Entity());
+        model.addAttribute("lista_s5_2_preguntas", demuna_FichaService.listarS5_2ByIdFicha(ficha.getId_ficha()));
+        
+        model.addAttribute("car_ficha_s1_p1_2", new Car_Ficha_S1_P1_2Entity());
+        model.addAttribute("lista_s1_2_preguntas", demuna_FichaService.listarS1_2ByIdFicha(ficha.getId_ficha()));
+        
+         model.addAttribute("car_ficha_s1_p1_3", new Car_Ficha_S1_P1_3Entity());
+        model.addAttribute("lista_s1_3_preguntas", demuna_FichaService.listarS1_3ByIdFicha(ficha.getId_ficha()));
+          
+           model.addAttribute("car_ficha_s1_p1_6", new Car_Ficha_S1_P1_6Entity());
+        model.addAttribute("lista_s1_6_preguntas", demuna_FichaService.listarS1_6ByIdFicha(ficha.getId_ficha()));
+        
+        model.addAttribute("car_ficha_s3_p3_2", new Car_Ficha_S3_P3_2Entity());
+        model.addAttribute("lista_s3_2_preguntas", demuna_FichaService.listarS3_2ByIdFicha(ficha.getId_ficha()));
+        
+         model.addAttribute("car_ficha_s3_p3_3", new Car_Ficha_S3_P3_3Entity());
+        model.addAttribute("lista_s3_3_preguntas", demuna_FichaService.listarS3_3ByIdFicha(ficha.getId_ficha()));
+        
+        model.addAttribute("car_ficha_s4_p4_2", new Car_Ficha_S4_P4_2Entity());
+        model.addAttribute("lista_s4_2_preguntas", demuna_FichaService.listarS4_2ByIdFicha(ficha.getId_ficha()));
+        
+          model.addAttribute("car_ficha_s4_p4_4", new Car_Ficha_S4_P4_4Entity());
+        model.addAttribute("lista_s4_4_preguntas", demuna_FichaService.listarS4_4ByIdFicha(ficha.getId_ficha()));
+        
+        model.addAttribute("car_ficha_s6_p6_1", new Car_Ficha_S6_P6_1Entity());
+        model.addAttribute("lista_s6_1_preguntas", demuna_FichaService.listarS6_1ByIdFicha(ficha.getId_ficha()));
+        
+        model.addAttribute("car_ficha_s9_p9_1", new Car_Ficha_S9_P9_1Entity());
+        model.addAttribute("lista_s9_1_preguntas", demuna_FichaService.listarS9_1ByIdFicha(ficha.getId_ficha()));
+        
+        model.addAttribute("educa_ficha_s5_4", new Educa_Ficha_S5_4Entity());
+        model.addAttribute("lista_s5_4_preguntas", demuna_FichaService.listarS5_4ByIdFicha(ficha.getId_ficha()));
+        
+         model.addAttribute("educa_ficha_s5_5", new Educa_Ficha_S5_5Entity());
+        model.addAttribute("lista_s5_5_preguntas", demuna_FichaService.listarS5_5ByIdFicha(ficha.getId_ficha()));
+        
+         model.addAttribute("educa_ficha_s5_6", new Educa_Ficha_S5_6Entity());
+        model.addAttribute("lista_s5_6_preguntas", demuna_FichaService.listarS5_6ByIdFicha(ficha.getId_ficha()));
+        
+         model.addAttribute("educa_ficha_s5_7", new Educa_Ficha_S5_7Entity());
+        model.addAttribute("lista_s5_7_preguntas", demuna_FichaService.listarS5_7ByIdFicha(ficha.getId_ficha()));
+        
+        model.addAttribute("educa_ficha_s5_8", new Educa_Ficha_S5_8Entity());
+        model.addAttribute("lista_s5_8_preguntas", demuna_FichaService.listarS5_8ByIdFicha(ficha.getId_ficha()));
+        
+        model.addAttribute("educa_ficha_s5_9", new Educa_Ficha_S5_9Entity());
+        model.addAttribute("lista_s5_9_preguntas", demuna_FichaService.listarS5_9ByIdFicha(ficha.getId_ficha()));
+        
+          model.addAttribute("educa_ficha_s5_10", new Educa_Ficha_S5_10Entity());
+        model.addAttribute("lista_s5_10_preguntas", demuna_FichaService.listarS5_10ByIdFicha(ficha.getId_ficha()));
+        
+           model.addAttribute("educa_ficha_s5_31", new Educa_Ficha_S5_31Entity());
+        model.addAttribute("lista_s5_31_preguntas", demuna_FichaService.listarS5_31ByIdFicha(ficha.getId_ficha()));
+        
+        if (ficha != null && ficha.getCar_ficha() != null) {
+            model.addAttribute("txt_desc_depe_tde", ficha.getCar_ficha().getTxt_desc_depe_tde());
+            model.addAttribute("txt_comisionado", ficha.getCar_ficha().getTxt_comisionado());
+            model.addAttribute("fch_supervision", ficha.getCar_ficha().getFch_supervision());
+        }
+
+
+        return "gestioncar/usuario/FormularioFichasDemuna";
+    }
+
 ////////////////////////////////////////////////////////////////////////
 //////////////////////////////EDITAR////////////////////////////////////
     @RequestMapping(value = "/dp/usuario/ficha/editarFichas", method = {RequestMethod.POST, RequestMethod.GET})
@@ -932,11 +1140,7 @@ String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
                 }
 
                 System.out.println("ccccc: ");
-                // ficha.setFch_supervision(Demuna_FichaEntity.getFch_supervision());
-                //    ficha.setFch_supervision(Demuna_FichaEntity.getFch_supervision() != null ? Demuna_FichaEntity.getFch_supervision().trim() : null);
-                //ficha = demuna_FichaService.getFichaByIdFicha(ficha.getId_ficha());
-
-                // ficha = demuna_FichaService.getFichaByIdFicha(id_ficha);
+       
                  ficha.setCar_ficha_s1(demuna_FichaService.getFichaS1ByIdFicha(id_ficha));
                 ficha.setCar_ficha_s2(demuna_FichaService.getFichaS2ByIdFicha(id_ficha));
                 ficha.setCar_ficha_s3(demuna_FichaService.getFichaS3ByIdFicha(id_ficha));
@@ -2171,7 +2375,7 @@ public String ajaxEliminarModalSec5_31(Model model,
 
 
 ////////////////VALIDACION////////////////////
-     @RequestMapping("/demuna/ficha/formulario/validarParcial")
+     @RequestMapping("/dp/ficha/formulario/validarParcial")
     public String validarParcial(Model model, @RequestParam("id_ficha") Integer id_ficha,
             @RequestParam("id_sec_x") Integer id_sec_x,
             @RequestParam("sec_x") String sec_x) {
@@ -2193,10 +2397,10 @@ public String ajaxEliminarModalSec5_31(Model model,
 
         model.addAttribute("ficha", ficha);
 
-        return "gestiondemuna/usuario/FormularioFichasDemuna :: data_" + sec_x + "_alert_validado";
+        return "gestioncar/usuario/FormularioFichasDemuna :: data_" + sec_x + "_alert_validado";
     }
 
-    @RequestMapping("/demuna/ficha/formulario/ajaxValidarFicha")
+    @RequestMapping("/dp/ficha/formulario/ajaxValidarFicha")
     public String ajaxValidarFicha(Model model,
             @RequestParam(value = "id_ficha", required = false) Integer id_ficha) {
 

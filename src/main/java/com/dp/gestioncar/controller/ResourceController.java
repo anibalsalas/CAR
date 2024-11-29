@@ -83,73 +83,168 @@ public class ResourceController {
         return "pages-error-406";
     }
 
-    @GetMapping("/home")
-    public RedirectView home(HttpSession httpSession, Model model, RedirectAttributes attributes) {
-        Demuna_FichaEntity ficha = null;
+//    @GetMapping("/home")
+//    public RedirectView home(HttpSession httpSession, Model model, RedirectAttributes attributes) {
+//        Demuna_FichaEntity ficha = null;
+//
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        String username = authentication.getName();
+//        String url = "";
+//        String rol_usuario = "";
+//        String rol_especialista = "";
+//
+//        String tipo_usuario = (String) httpSession.getAttribute("session_tipo_usuario");
+//        String cod_unico = (String) httpSession.getAttribute("session_cod_unico");
+//
+//        if (tipo_usuario.equals("A")) {//usuario de la dp
+//            rol_usuario = Constantes.ROL_COMISIONADO;
+//            ficha = demuna_FichaService.getFichaByCodigoUnico(cod_unico.trim());
+//            
+//        } else if (tipo_usuario.equals("B")) {//usuario externo
+//            rol_usuario = Constantes.ROL_DIRECTOR;
+//            ficha = demuna_FichaService.getFichaByCodigoUnico(username.trim());
+//            System.out.println("tipo_usuario: " + tipo_usuario);
+//        } else if (tipo_usuario.equals("C")) {//especialista de la dp
+//            System.out.println("tipo_usuario: " + tipo_usuario);
+//           
+//            
+//            UsuarioEntity usuariox = usuarioService.buscarUsuario(username.trim().toUpperCase());
+//           
+//            for (Seg_usuario_rolesEntity seg_usuario_rolesEntity : usuariox.getSeg_usuario_rolesentity()) {
+//
+//                if (seg_usuario_rolesEntity.getSeg_rolesentity().getName_rol().trim().toUpperCase().equals("ROLE_DEMUNA_FICHA_ESPECIALISTA")) {
+//                    System.out.println("ok_especialista");
+//                    rol_especialista = Constantes.ROL_ESPECIALISTA;
+//                    rol_usuario = Constantes.ROL_COMISIONADO;
+//                    break;
+//                }
+//            }
+//        }
+//
+//
+//        if (tipo_usuario.equals("C") && rol_especialista.equals(Constantes.ROL_ESPECIALISTA)) {
+//
+//            Demuna_FichaEntity car_ficha = demuna_FichaService.buscarFichaByComisionadoCodigoUnicoFicha1(cod_unico.trim());
+//            if (car_ficha != null && car_ficha.getId_ficha() != null) {
+//
+//                attributes.addAttribute("id_ficha", car_ficha.getId_ficha());
+//                url = "/dp/usuario/ficha/editarFichas";
+//
+//            } else {
+//
+//                attributes.addAttribute("cod_unico", tipo_usuario.equals("A") ? cod_unico.trim() : tipo_usuario.equals("B") ? username.trim() : "");
+//                url = "/dp/usuario/ficha/insertarFichas";
+//            }
+//
+//        } else if (tipo_usuario.equals("C") && rol_especialista.equals("")) {
+//            url = "/403";
+//        } else {
+//
+//            Demuna_FichaEntity car_ficha = demuna_FichaService.buscarFichaByComisionadoCodigoUnicoFicha1(cod_unico.trim());
+//
+//            if (car_ficha != null && car_ficha.getId_ficha() != null) {
+//
+//                attributes.addAttribute("id_ficha", car_ficha.getId_ficha());
+//                url = "/dp/usuario/ficha/editarFichas";
+//
+//            } else {
+//
+//                attributes.addAttribute("cod_unico", tipo_usuario.equals("A") ? cod_unico.trim() : tipo_usuario.equals("B") ? username.trim() : "");
+//                url = "/dp/usuario/ficha/insertarFichas";
+//            }
+//
+//        }
+//   //////////////////////
+//
+//        httpSession.setAttribute("rol_usuario", rol_usuario);
+//        httpSession.setAttribute("rol_especialista", rol_especialista);
+//
+//        RedirectView redirectView = new RedirectView();
+//        redirectView.setContextRelative(true);
+//        redirectView.setUrl(url);
+//
+//        return redirectView;
+//
+//    }
+@GetMapping("/home")
+public RedirectView home(HttpSession httpSession, Model model, RedirectAttributes attributes) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = authentication.getName();
+    String tipoUsuario = (String) httpSession.getAttribute("session_tipo_usuario");
+    String codUnico = (String) httpSession.getAttribute("session_cod_unico");
+    
+    String rolUsuario = "";
+    String rolEspecialista = "";
+    String url = "";
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    // tipo de usuario
+    switch (tipoUsuario) {
+        case "A": // Usuario de la DP
+            rolUsuario = Constantes.ROL_COMISIONADO;
+            System.out.println("Acceso con rol: COMISIONADO");
+            break;
 
-        String username = authentication.getName();
-        String url = "";
-        String rol_usuario = "";
-        String rol_especialista = "";
+        case "B": // Usuario externo
+            rolUsuario = Constantes.ROL_DIRECTOR;
+            System.out.println("Acceso con rol: DIRECTOR");
+            break;
 
-        String tipo_usuario = (String) httpSession.getAttribute("session_tipo_usuario");
-        String cod_unico = (String) httpSession.getAttribute("session_cod_unico");
+        case "C": // Especialista
+            UsuarioEntity usuario = usuarioService.buscarUsuario(username.trim().toUpperCase());
+            boolean isEspecialista = usuario.getSeg_usuario_rolesentity()
+                .stream()
+                .anyMatch(rol -> "ROLE_DEMUNA_FICHA_ESPECIALISTA".equalsIgnoreCase(
+                    rol.getSeg_rolesentity().getName_rol().trim()));
 
-        if (tipo_usuario.equals("A")) {//usuario de la dp
-
-            rol_usuario = Constantes.ROL_COMISIONADO;
-
-            ficha = demuna_FichaService.getFichaByCodigoUnico(cod_unico.trim());
-        } else if (tipo_usuario.equals("B")) {//usuario externo
-            rol_usuario = Constantes.ROL_DIRECTOR;
-            ficha = demuna_FichaService.getFichaByCodigoUnico(username.trim());
-
-        } else if (tipo_usuario.equals("C")) {//especialista de la dp
-            System.out.println("tipo_usuario: " + tipo_usuario);
-             UsuarioEntity usuariox = usuarioService.buscarUsuario(username.trim().toUpperCase());
-           
-
-            for (Seg_usuario_rolesEntity seg_usuario_rolesEntity : usuariox.getSeg_usuario_rolesentity()) {
-
-                if (seg_usuario_rolesEntity.getSeg_rolesentity().getName_rol().trim().toUpperCase().equals("ROLE_DEMUNA_FICHA_ESPECIALISTA")) {
-                    System.out.println("ok");
-                    rol_especialista = Constantes.ROL_ESPECIALISTA;
-                    rol_usuario = Constantes.ROL_COMISIONADO;
-                    break;
-                }
-            }
-        }
-/////////////////////////////////////////////////////////////////
-        if (tipo_usuario.equals("C") && rol_especialista.equals(Constantes.ROL_ESPECIALISTA)) {
-            url = "/dp/especialista/ficha/listarMonitoreoFichas";
-        } else if (tipo_usuario.equals("C") && rol_especialista.equals("")) {
-            url = "/403";
-        } else {
-            if (ficha != null && ficha.getId_ficha() != null) {
-
-                attributes.addAttribute("id_ficha", ficha.getId_ficha());
-                url = "/dp/usuario/ficha/editarFichas";
-
+            if (isEspecialista) {
+                rolEspecialista = Constantes.ROL_ESPECIALISTA;
+                rolUsuario = Constantes.ROL_COMISIONADO;
+                System.out.println("Acceso con rol: ESPECIALISTA");
             } else {
-                attributes.addAttribute("cod_unico", tipo_usuario.equals("A") ? cod_unico.trim() : tipo_usuario.equals("B") ? username.trim() : "");
-                url = "/dp/usuario/ficha/insertarFichas";
+                System.out.println("Acceso con rol: COMISIONADO (sin rol de especialista)");
             }
-        }
-        
-   //////////////////////
+            break;
 
-        httpSession.setAttribute("rol_usuario", rol_usuario);
-        httpSession.setAttribute("rol_especialista", rol_especialista);
-
-        RedirectView redirectView = new RedirectView();
-        redirectView.setContextRelative(true);
-        redirectView.setUrl(url);
-
-        return redirectView;
-
+        default:
+            url = "/403";
+            System.out.println("Acceso no válido: Tipo de usuario desconocido");
+            break;
     }
+
+
+    if ("C".equals(tipoUsuario) && Constantes.ROL_ESPECIALISTA.equals(rolEspecialista)) {
+        Demuna_FichaEntity ficha = demuna_FichaService.buscarFichaByComisionadoCodigoUnicoFicha1(codUnico.trim());
+        if (ficha != null && ficha.getId_ficha() != null) {
+            attributes.addAttribute("id_ficha", ficha.getId_ficha());
+            url = "/dp/especialista/ficha/listarSupervisionFichas";
+        } else {
+            attributes.addAttribute("cod_unico", codUnico.trim());
+            url = "/dp/especialista/ficha/listarSupervisionFichas";
+        }
+    } else if ("C".equals(tipoUsuario) && rolEspecialista.isEmpty()) {
+        url = "/403"; // Acceso denegado para especialista sin rol
+        System.out.println("Acceso denegado: Especialista sin rol definido");
+    } else if (!"403".equals(url)) {
+        Demuna_FichaEntity ficha = demuna_FichaService.buscarFichaByComisionadoCodigoUnicoFicha1(codUnico.trim());
+        if (ficha != null && ficha.getId_ficha() != null) {
+            attributes.addAttribute("id_ficha", ficha.getId_ficha());
+            url = "/dp/usuario/ficha/editarFichas";
+        } else {
+            attributes.addAttribute("cod_unico", codUnico.trim());
+            url = "/dp/usuario/ficha/insertarFichas";
+        }
+    }
+
+    // Configurar atributos de sesión
+    httpSession.setAttribute("rol_usuario", rolUsuario);
+    httpSession.setAttribute("rol_especialista", rolEspecialista);
+
+    RedirectView redirectView = new RedirectView();
+    redirectView.setContextRelative(true);
+    redirectView.setUrl(url);
+    return redirectView;
+}
 
     @GetMapping("/authorized")
     public @ResponseBody

@@ -659,17 +659,19 @@ h6 {
     align-items: center;
     font-size: 15px;
     font-weight: 600;
-    color: #4154f1;
+    color: #fff;
     transition: .3;
-    background: #f6f9ff;
+    background: #0f5997;
     padding: 10px 15px;
-    border-radius: 4px
+    border-radius: 4px;
+    border-bottom: 1px solid #e6e7e9;
+    margin-top: 20px;
 }
 
 .sidebar-nav .nav-link i {
     font-size: 16px;
     margin-right: 10px;
-    color: #4154f1
+    color: #bbd0e2;
 }
 
 .sidebar-nav .nav-link.collapsed {
@@ -678,16 +680,16 @@ h6 {
 }
 
 .sidebar-nav .nav-link.collapsed i {
-    color: #899bbd
+    color: #899bbd;
 }
 
 .sidebar-nav .nav-link:hover {
-    color: #4154f1;
-    background: #f6f9ff
+    color: #fff !important;
+    background: #0f5997;
 }
 
 .sidebar-nav .nav-link:hover i {
-    color: #4154f1
+    color: #bbd0e2;
 }
 
 .sidebar-nav .nav-link .bi-chevron-down {
@@ -700,19 +702,23 @@ h6 {
 }
 
 .sidebar-nav .nav-content {
-    padding: 5px 0 0 0;
+    padding: 20px 0 0 20px;
     margin: 0;
-    list-style: none
+    list-style: none;
+    justify-content: left;
+    place-content: flex-start;
+    place-items: flex-start;
 }
+
 
 .sidebar-nav .nav-content a {
     display: flex;
     align-items: center;
     font-size: 14px;
     font-weight: 600;
-    color: #012970;
+    color: #fff;
     transition: .3;
-    padding: 10px 0 10px 40px;
+    line-height: 40px;
     transition: .3s
 }
 
@@ -725,7 +731,7 @@ h6 {
 
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
-    color: #4154f1
+    color: #bbd0e2;
 }
 .sidebar-nav .nav-content a.active {
     text-decoration: underline;
@@ -1163,7 +1169,7 @@ h6 {
 }
 
 .error-404 .btn:hover {
-    background: #3e4f6f
+    background: #3e4f6f;
 }
 
 @media(min-width:992px) {
@@ -1313,3 +1319,11 @@ h6 {
   .hover-underline:hover::after {
     width: 100%; /* La línea se extiende a todo el ancho */
   }
+  
+  
+  .btn:hover{
+         background-color: #0f5997 !important; 
+         color:#fff !important;
+         transition: .1s;
+         border: 1px solid #0f5997 !important;
+     }

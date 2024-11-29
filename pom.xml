@@ -13,7 +13,7 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
     <name>gestioncar</name>
-    <description>Proyecto gestion Conflictos Sociales</description>
+    <description>Proyecto gestion CAR</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
