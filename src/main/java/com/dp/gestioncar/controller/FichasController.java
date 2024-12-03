@@ -781,6 +781,8 @@ String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
 
        
        model.addAttribute("listaS7_7_arch", demuna_FichaService.listarArchivos(ficha.getId_ficha(), "S7_7_ARCH", "S7",ficha.getCod_unico()));
+       model.addAttribute("listaS8_1_arch", demuna_FichaService.listarArchivos(ficha.getId_ficha(), "S8_1_ARCH", "S8",ficha.getCod_unico()));
+       model.addAttribute("listaS8_2_arch", demuna_FichaService.listarArchivos(ficha.getId_ficha(), "S8_2_ARCH", "S8",ficha.getCod_unico()));
 
        model.addAttribute("listaS7_10_arch", demuna_FichaService.listarArchivos(ficha.getId_ficha(), "S7_10_ARCH", "S7",ficha.getCod_unico()));
 
@@ -900,6 +902,8 @@ String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
         List<Demuna_ArchivoEntity> listaS7_7_arch = null;
         List<Demuna_ArchivoEntity> listaS7_10_arch = null; 
         List<Demuna_ArchivoEntity> listaS8_11_arch = null;
+        List<Demuna_ArchivoEntity> listaS8_1_arch = null;
+        List<Demuna_ArchivoEntity> listaS8_2_arch = null;
         List<Demuna_ArchivoEntity> listaS8_13_arch = null;
         List<Demuna_ArchivoEntity> listaS8_14_arch = null;
         List<Demuna_ArchivoEntity> listaS9_1_arch = null; 
@@ -948,7 +952,8 @@ String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
                 ficha.setCar_ficha_s9(demuna_FichaService.getFichaS9ByIdFicha(id_ficha));
                 ficha.setCar_ficha_s10(demuna_FichaService.getFichaS10ByIdFicha(id_ficha));
                 
-//
+               listaS8_1_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_1_ARCH", "S8",ficha.getCod_unico());
+               listaS8_2_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_2_ARCH", "S8",ficha.getCod_unico());
                listaS7_7_arch = demuna_FichaService.listarArchivos(id_ficha, "S7_7_ARCH", "S7",ficha.getCod_unico()); 
                listaS7_10_arch = demuna_FichaService.listarArchivos(id_ficha, "S7_10_ARCH", "S7",ficha.getCod_unico());
                listaS8_11_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_11_ARCH", "S8",ficha.getCod_unico());
@@ -999,7 +1004,8 @@ String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
    
         model.addAttribute("listaS7_7_arch", listaS7_7_arch);
         model.addAttribute("listaS7_10_arch", listaS7_10_arch); 
-                
+        model.addAttribute("listaS8_1_arch", listaS8_1_arch);    
+        model.addAttribute("listaS8_2_arch", listaS8_2_arch); 
         model.addAttribute("listaS8_11_arch", listaS8_11_arch);
         model.addAttribute("listaS8_13_arch", listaS8_13_arch);
         model.addAttribute("listaS8_14_arch", listaS8_14_arch);
@@ -1104,6 +1110,9 @@ String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
         List<Demuna_EstablecimientosEntity> listaMunicipalidades = null;
         List<Demuna_ArchivoEntity> listaS7_7_arch = null;
         List<Demuna_ArchivoEntity> listaS7_10_arch = null; 
+        List<Demuna_ArchivoEntity> listaS8_1_arch = null;
+        List<Demuna_ArchivoEntity> listaS8_2_arch = null;
+
         List<Demuna_ArchivoEntity> listaS8_11_arch = null;
         List<Demuna_ArchivoEntity> listaS8_13_arch = null;
         List<Demuna_ArchivoEntity> listaS8_14_arch = null;
@@ -1153,7 +1162,8 @@ String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
                 ficha.setCar_ficha_s9(demuna_FichaService.getFichaS9ByIdFicha(id_ficha));
                 ficha.setCar_ficha_s10(demuna_FichaService.getFichaS10ByIdFicha(id_ficha));
                 
-//
+               listaS8_1_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_1_ARCH", "S8",ficha.getCod_unico());
+               listaS8_2_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_2_ARCH", "S8",ficha.getCod_unico());
                listaS7_7_arch = demuna_FichaService.listarArchivos(id_ficha, "S7_7_ARCH", "S7",ficha.getCod_unico()); 
                listaS7_10_arch = demuna_FichaService.listarArchivos(id_ficha, "S7_10_ARCH", "S7",ficha.getCod_unico());
                listaS8_11_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_11_ARCH", "S8",ficha.getCod_unico());
@@ -1201,7 +1211,8 @@ String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
         model.addAttribute("listaDistrito", listaDistrito);
         model.addAttribute("listarEM", listarEM);
         
-   
+        model.addAttribute("listaS8_1_arch", listaS8_1_arch);
+         model.addAttribute("listaS8_2_arch", listaS8_2_arch);
         model.addAttribute("listaS7_7_arch", listaS7_7_arch);
         model.addAttribute("listaS7_10_arch", listaS7_10_arch); 
                 
@@ -3215,6 +3226,7 @@ public String ajaxGuardarArchivoAdjunto(Model model,
 
     List<Demuna_ArchivoEntity> listaS7_7_arch = null;
     List<Demuna_ArchivoEntity> listaS7_10_arch = null; 
+    List<Demuna_ArchivoEntity> listaS8_1_arch = null; 
     List<Demuna_ArchivoEntity> listaS8_11_arch = null; 
     List<Demuna_ArchivoEntity> listaS8_13_arch = null; 
     List<Demuna_ArchivoEntity> listaS8_14_arch = null;  
@@ -3231,7 +3243,7 @@ public String ajaxGuardarArchivoAdjunto(Model model,
     List<Demuna_ArchivoEntity>   listaS10_6_5_arch = null;
     List<Demuna_ArchivoEntity>   listaS10_7_3_arch = null;
     List<Demuna_ArchivoEntity>   listaS10_7_4_arch = null;
-
+    List<Demuna_ArchivoEntity>   listaS8_2_arch = null;
 
     Demuna_ArchivoEntity archivox = null;
     Demuna_FichaEntity ficha = new Demuna_FichaEntity();
@@ -3323,6 +3335,16 @@ public String ajaxGuardarArchivoAdjunto(Model model,
                         listaS8_14_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_14_ARCH", id_seccion, cod_unico);
                         s8.setS8_14_arch_id_archivo(listaS8_14_arch.size());
                         System.out.println("case listaS8_14_arch: " + listaS8_14_arch);
+                        break;
+                    case "s8_1_arch":
+                        listaS8_1_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_1_ARCH", id_seccion, cod_unico);
+                        s8.setS8_1_arch_id_archivo(listaS8_1_arch.size());
+                        System.out.println("case listaS8_1_arch: " + listaS8_1_arch);
+                        break;
+                    case "s8_2_arch":
+                        listaS8_2_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_2_ARCH", id_seccion, cod_unico);
+                        s8.setS8_2_arch_id_archivo(listaS8_2_arch.size());
+                        System.out.println("case listaS8_2_arch: " + listaS8_2_arch);
                         break;
           
                 }
@@ -3420,6 +3442,7 @@ public String ajaxGuardarArchivoAdjunto(Model model,
 
         model.addAttribute("ficha", ficha);
         model.addAttribute("listaS7_7_arch", listaS7_7_arch);
+        model.addAttribute("listaS8_2_arch", listaS8_2_arch);
         model.addAttribute("listaS7_10_arch", listaS7_10_arch); 
         model.addAttribute("listaS8_11_arch", listaS8_11_arch); 
         model.addAttribute("listaS8_13_arch", listaS8_13_arch); 
@@ -3437,6 +3460,8 @@ public String ajaxGuardarArchivoAdjunto(Model model,
         model.addAttribute("listaS10_7_4_arch", listaS10_7_4_arch); 
         model.addAttribute("listaS9_1_arch", listaS9_1_arch); 
         model.addAttribute("listaS8_14_arch", listaS8_14_arch); 
+        model.addAttribute("listaS8_1_arch", listaS8_1_arch); 
+
         
     } catch (IllegalArgumentException e) {
         errorMessage = e.getMessage();
@@ -4130,6 +4155,69 @@ String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
     System.out.println("listaS10_7_4_arch añadida al modelo con " + (listaS10_7_4_arch != null ? listaS10_7_4_arch.size() : "0") + " elementos");
 
     return "gestioncar/usuario/FormularioFichasDemuna :: data_s10_7_4_arch";
+}
+
+
+
+@RequestMapping("/dp/ficha/formulario/ajaxEliminarProyectoSec8_1")
+public String ajaxEliminarArchivoSec8_1(Model model,
+        @RequestParam("id_archivo") Integer id_archivo,
+         @RequestParam("cod_unico") String cod_unico,
+        @RequestParam("id_ficha") Integer id_ficha) {
+
+    List<Demuna_ArchivoEntity> listaS8_1_arch = null;
+String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
+    try {
+
+        Demuna_ArchivoEntity archivo = demuna_FichaService.getArchivoById(id_archivo, id_ficha,cod_unico);
+
+        demuna_FichaService.eliminarArchivoById(archivo.getId());
+
+        Path fileToDeletePath = Paths.get(archivo.getNom_archivo());
+        Files.delete(fileToDeletePath);
+
+        listaS8_1_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_1_ARCH", "S8",cod_unico);
+
+    } catch (Exception e) {
+        logger.error("Error: " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    model.addAttribute("listaS8_1_arch", listaS8_1_arch);
+    System.out.println("listaS8_1_arch añadida al modelo con " + (listaS8_1_arch != null ? listaS8_1_arch.size() : "0") + " elementos");
+
+    return "gestioncar/usuario/FormularioFichasDemuna :: data_s8_1_arch";
+}
+
+
+@RequestMapping("/dp/ficha/formulario/ajaxEliminarProyectoSec8_2")
+public String ajaxEliminarArchivoSec8_2(Model model,
+        @RequestParam("id_archivo") Integer id_archivo,
+         @RequestParam("cod_unico") String cod_unico,
+        @RequestParam("id_ficha") Integer id_ficha) {
+
+    List<Demuna_ArchivoEntity> listaS8_2_arch = null;
+String usr_archivo = variableSistemaService.userID().trim().toUpperCase();
+    try {
+
+        Demuna_ArchivoEntity archivo = demuna_FichaService.getArchivoById(id_archivo, id_ficha,cod_unico);
+
+        demuna_FichaService.eliminarArchivoById(archivo.getId());
+
+        Path fileToDeletePath = Paths.get(archivo.getNom_archivo());
+        Files.delete(fileToDeletePath);
+
+        listaS8_2_arch = demuna_FichaService.listarArchivos(id_ficha, "S8_2_ARCH", "S8",cod_unico);
+
+    } catch (Exception e) {
+        logger.error("Error: " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    model.addAttribute("listaS8_2_arch", listaS8_2_arch);
+    System.out.println("listaS8_2_arch añadida al modelo con " + (listaS8_2_arch != null ? listaS8_2_arch.size() : "0") + " elementos");
+
+    return "gestioncar/usuario/FormularioFichasDemuna :: data_s8_2_arch";
 }
 }
 

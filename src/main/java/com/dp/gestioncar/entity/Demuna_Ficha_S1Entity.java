@@ -73,6 +73,7 @@ public class Demuna_Ficha_S1Entity implements Serializable {
     private Integer p1_5_subtotal_vene;
     private Integer p1_5_subtotal_otro;
     private Integer p1_5_total;
+    private String p1_5_otropais;
     
     @NotNull
     @Column(name = "p1_6") 

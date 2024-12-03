@@ -37,6 +37,7 @@ public class Car_Ficha_S4_P4_2Entity implements Serializable {
     private String p4_2_certinac;
     private String p4_2_reniec;
     private String p4_2_defensoria;
+    private String p4_2_amerita;
     
     public Car_Ficha_S4_P4_2Entity() {
     }
@@ -145,5 +146,14 @@ public class Car_Ficha_S4_P4_2Entity implements Serializable {
         this.p4_2_defensoria = p4_2_defensoria;
     }
 
+    public String getP4_2_amerita() {
+        return p4_2_amerita;
+    }
+
+    public void setP4_2_amerita(String p4_2_amerita) {
+        this.p4_2_amerita = p4_2_amerita;
+    }
+
+   
     
 }

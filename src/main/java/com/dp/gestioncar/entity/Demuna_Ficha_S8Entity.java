@@ -42,7 +42,6 @@ public class Demuna_Ficha_S8Entity implements Serializable {
     private Date fch_valida;
     
     private String p8_1;
-    private String p8_2;
     private String p8_2_otro;
     private String p8_3;
     private String p8_4;
@@ -68,7 +67,17 @@ public class Demuna_Ficha_S8Entity implements Serializable {
     private String p8_14_g;
     private String p8_14_h;
     private String p8_14_i;
-
+    private String p8_1_x;
+    private String p8_2_a;
+    private String p8_2_b;
+    private String p8_2_c;
+    private String p8_2_d;
+    private String p8_2_e;
+    private String p8_2_f;
+    private String p8_2_g;
+    
+    
+    
   @Formula("(select count(ea.id_archivo) \n"
     + "from siga.car_archivo ea \n"
     + "where ea.id_ficha = id_ficha and ea.id_seccion = 'S8' and ea.nom_campo = 'S8_11_ARCH')")
@@ -87,5 +96,14 @@ public class Demuna_Ficha_S8Entity implements Serializable {
     + "where ea.id_ficha = id_ficha and ea.id_seccion = 'S8' and ea.nom_campo = 'S8_14_ARCH')")
     private Integer s8_14_arch_id_archivo;
 
+@Formula("(select count(ea.id_archivo) \n"
+    + "from siga.car_archivo ea \n"
+    + "where ea.id_ficha = id_ficha and ea.id_seccion = 'S8' and ea.nom_campo = 'S8_1_ARCH')")
+    private Integer s8_1_arch_id_archivo;
+
+@Formula("(select count(ea.id_archivo) \n"
+    + "from siga.car_archivo ea \n"
+    + "where ea.id_ficha = id_ficha and ea.id_seccion = 'S8' and ea.nom_campo = 'S8_2_ARCH')")
+    private Integer s8_2_arch_id_archivo;
 
 }

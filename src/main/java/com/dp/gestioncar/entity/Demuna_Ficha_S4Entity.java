@@ -47,7 +47,7 @@ public class Demuna_Ficha_S4Entity implements Serializable {
     
     private String p4_1;
     private Integer p4_3;
-
+    private String p4_4;
     private Integer p4_5;
    
     private String p4_6_o1;

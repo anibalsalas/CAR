@@ -42,13 +42,26 @@ public class Demuna_Ficha_S3Entity implements Serializable {
     private Date fch_valida;
   
     private Integer p3_1_1;
-    private String p3_1_2;
+    private String p3_1_2; 
+    private String p3_1_2_a;
+    private String p3_1_2_b;
+    private String p3_1_2_c;
     private String p3_1_2_otro;
     private String p3_1_3;
+    private String  p3_1_3_a;
+    private String  p3_1_3_b;
+    private String  p3_1_3_c;
     private Integer p3_1_3_otro;
     private String p3_1_4;
+    private String p3_1_4_a;
+    private String p3_1_4_b;
+    private String p3_1_4_c;
+    private String p3_1_4_d;
     private Integer p3_1_4_otro;
     private String p3_1_5;
+    private String p3_1_5_a;
+    private String p3_1_5_b;
+    private String p3_1_5_c;
     private Integer p3_1_5_otro;
     
     private String p3_1_6;
@@ -86,11 +99,18 @@ public class Demuna_Ficha_S3Entity implements Serializable {
     private String p3_4_3;		
     private String p3_4_4;		
     private String p3_4_5;	
-    private String p3_4_6;
+    private String p3_4_6_a;
+    private String p3_4_6_b; 
+    private String p3_4_6_c; 
+    private String p3_4_6_d;
     private String p3_4_6_cual;
     private String p3_4_6_otro;
     private String p3_4_7;
     private String p3_4_8;
+    private String p3_4_8_a; 
+    private String p3_4_8_b; 
+    private String p3_4_8_c; 
+    private String p3_4_8_d;
     private String p3_4_8_otro;
     private Integer p3_4_9_horas;
     private String p3_4_10;

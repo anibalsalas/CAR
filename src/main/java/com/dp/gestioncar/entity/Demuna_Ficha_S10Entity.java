@@ -159,7 +159,9 @@ public class Demuna_Ficha_S10Entity implements Serializable {
     private String p10_6_4;
     private String p10_6_5;
     private String p10_7_1;
-    private String p10_7_2;
+    private String p10_7_2_a;
+    private String p10_7_2_b;
+    private String p10_7_2_c;
     private String p10_7_3;
     private String p10_7_4;
     private String p10_7_5;
@@ -176,6 +178,10 @@ public class Demuna_Ficha_S10Entity implements Serializable {
     private String p10_8_6;
     private String p10_obervaciones;
     private String aceptar;
+    private String p10_1_12_a;
+    private String p10_1_12_b;
+    private String p10_1_12_c;
+    private String p10_1_12_d;
     
        @Formula("(select count(ea.id_archivo) \n"
     + "from siga.car_archivo ea \n"

@@ -947,7 +947,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   tipoCarRadios.forEach((radio) => {
     radio.addEventListener("change", ({ target }) => {
-      togglePerfilCarRadios(target.value === "c"); 
+      togglePerfilCarRadios(target.value === "C"); 
     });
   });
 
@@ -964,7 +964,7 @@ function valida_tipocar() {
 
     // Recorrer los radio buttons y actualizar según la opción seleccionada
     radiosTipoCar.forEach(radio => {
-        if (tipoCarSeleccionado === 'c') {
+        if (tipoCarSeleccionado === 'C') {
             // Habilitar y agregar atributo required
             radio.disabled = false;
             radio.required = true;
@@ -1008,7 +1008,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleOtros = () => {
     // Verificamos si algún radio tiene el valor 'i' y está marcado
     const isOtrosSelected = Array.from(perfilCarRadios).some(
-      (radio) => radio.checked && radio.value === 'i'
+      (radio) => radio.checked && radio.value === 'I'
     );
 
     perfilTextarea.disabled = !isOtrosSelected;
@@ -1046,7 +1046,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleOtrosx = () => {
     // Verificamos si algún radio tiene el valor 'f' y está marcado
     const isOtrosSelected = Array.from(acargodeRadios).some(
-      (radio) => radio.checked && radio.value === 'f'
+      (radio) => radio.checked && radio.value === 'F'
     );
 
     acargodeTextarea.disabled = !isOtrosSelected;
@@ -1874,7 +1874,7 @@ if (otroRadio.checked){
 }
 
 function valida_p3_1_2_otro(){
-   var otroRadio = document.getElementById('p3_1_2_3');
+   var otroRadio = document.getElementById('p3_1_2_c');
    var p3_1_2_otro= document.getElementById('p3_1_2_otro');
   //  var noRadio = document.getElementById('p2_7_no');
 if (otroRadio.checked){
@@ -1891,7 +1891,7 @@ if (otroRadio.checked){
 }
 
 function valida_p3_1_3_otro(){
-    var otroRadio = document.getElementById('p3_1_3_3');
+    var otroRadio = document.getElementById('p3_1_3_c');
     var p3_1_3_otro= document.getElementById('p3_1_3_otro');
    //  var noRadio = document.getElementById('p2_7_no');
  if (otroRadio.checked){
@@ -1909,7 +1909,7 @@ function valida_p3_1_3_otro(){
 
 
 function valida_p3_1_4_otro(){
-    var otroRadio = document.getElementById('p3_1_4_4');
+    var otroRadio = document.getElementById('p3_1_4_d');
     var p3_1_4_otro= document.getElementById('p3_1_4_otro');
    //  var noRadio = document.getElementById('p2_7_no');
  if (otroRadio.checked){
@@ -1926,7 +1926,7 @@ function valida_p3_1_4_otro(){
  }
  
  function valida_p3_1_5_otro(){
-    var otroRadio = document.getElementById('p3_1_5_3');
+    var otroRadio = document.getElementById('p3_1_5_c');
     var p3_1_5_otro= document.getElementById('p3_1_5_otro');
    //  var noRadio = document.getElementById('p2_7_no');
  if (otroRadio.checked){
@@ -2419,44 +2419,121 @@ function valida_p3_4_1() {
     }
 }
 
-
+//
+//function valida_p3_4_5() {
+//    const radioSi = document.getElementById("p3_4_5_si");
+//    const radioNo = document.getElementById("p3_4_5_no");
+//
+//    let respuesta = null;
+//    if (radioSi && radioSi.checked) {
+//        respuesta = "S";
+//    } else if (radioNo && radioNo.checked) {
+//        respuesta = "N";
+//    }
+//
+//    const radios = document.querySelectorAll('.row346 input[type="radio"]');
+//    const inputs = document.querySelectorAll('.row346 input:not([type="radio"])');
+//
+//    // Habilita o deshabilita según la respuesta seleccionada
+//    if (respuesta === "S") {
+//        radios.forEach(radio => {
+//            radio.disabled = false; // Habilitar radios
+//            radio.required = true; // Opcional: agregar required
+//        });
+//        inputs.forEach(input => {
+//            input.disabled = false; // Habilitar inputs
+//            input.required = true; // Opcional: agregar required
+//        });
+//    } else if (respuesta === "N") {
+//        radios.forEach(radio => {
+//            radio.disabled = true; // Deshabilitar radios
+//            radio.checked = false; // Limpiar selección (opcional)
+//            radio.required = false; // Opcional: eliminar required
+//        });
+//        inputs.forEach(input => {
+//            input.disabled = true; // Deshabilitar inputs
+//            input.value = ""; // Limpiar valores (opcional)
+//            input.required = false; // Opcional: eliminar required
+//        });
+//    }
+//}
 function valida_p3_4_5() {
-    const radioSi = document.getElementById("p3_4_5_si");
-    const radioNo = document.getElementById("p3_4_5_no");
+    // Obtener los radios de cada pregunta
+    const radioSi = document.getElementById("p3_4_5_si"); // p3_4_5 (la pregunta principal)
+    const radioNo = document.getElementById("p3_4_5_no"); 
 
+    const radioSi4 = document.getElementById("p3_4_4_si"); // p3_4_4
+    const radioNo4 = document.getElementById("p3_4_4_no");
+
+    const radioSi3 = document.getElementById("p3_4_3_si"); // p3_4_3
+    const radioNo3 = document.getElementById("p3_4_3_no");
+
+    const radioSi6 = document.getElementById("p3_4_6_si"); // p3_4_6 (la pregunta dependiente)
+    const radioNo6 = document.getElementById("p3_4_6_no");
+    
+    var p3_4_6_cual   = document.getElementById("p3_4_6_cual");
+    var p3_4_6_otro   = document.getElementById("p3_4_6_otro");
     let respuesta = null;
+    
+    // Verificar si "Sí" o "No" están seleccionados en p3_4_5
     if (radioSi && radioSi.checked) {
         respuesta = "S";
     } else if (radioNo && radioNo.checked) {
         respuesta = "N";
     }
 
-    const radios = document.querySelectorAll('.row346 input[type="radio"]');
-    const inputs = document.querySelectorAll('.row346 input:not([type="radio"])');
+    // Verificar si "Sí" está seleccionado en cualquiera de las preguntas relacionadas
+    const isSiSelected = (radioSi3 && radioSi3.checked) || (radioSi4 && radioSi4.checked) || (radioSi && radioSi.checked);
 
-    // Habilita o deshabilita según la respuesta seleccionada
-    if (respuesta === "S") {
-        radios.forEach(radio => {
-            radio.disabled = false; // Habilitar radios
-            radio.required = true; // Opcional: agregar required
+    // Si cualquier radio de las preguntas 3.4.3, 3.4.4 o 3.4.5 tiene "Sí", habilitar p3_4_6
+    if (isSiSelected) {
+        if (radioSi6) {
+            radioSi6.disabled = false;
+        }
+        if (radioNo6) {
+            radioNo6.disabled = false;
+        }
+    } else {
+        // Si ninguno tiene "Sí", deshabilitar p3_4_6
+        if (radioSi6) {
+            radioSi6.disabled = true;
+            radioSi6.checked = false;
+        }
+        if (radioNo6) {
+            radioNo6.disabled = true;
+            radioNo6.checked = false;
+        }
+    }
+
+    const checkboxes = document.querySelectorAll('.row346 input[type="checkbox"]');
+    // Habilitar o deshabilitar los radios y los inputs según la respuesta seleccionada
+    if (respuesta === "S" || isSiSelected) {
+        // Si "Sí" está marcado en cualquiera de las opciones, habilitar todos los radios e inputs
+        checkboxes.forEach(radio => {
+            radio.disabled = false;
+            radio.required = true; // Opcional: agregar required si es necesario
         });
-        inputs.forEach(input => {
-            input.disabled = false; // Habilitar inputs
-            input.required = true; // Opcional: agregar required
-        });
+         p3_4_6_cual.disabled=true;
+        p3_4_6_otro.disabled = true;
+
+        
     } else if (respuesta === "N") {
-        radios.forEach(radio => {
-            radio.disabled = true; // Deshabilitar radios
-            radio.checked = false; // Limpiar selección (opcional)
-            radio.required = false; // Opcional: eliminar required
+        p3_4_6_cual.value ="";
+        p3_4_6_cual.disabled=true;
+        
+        p3_4_6_otro.value="";
+        p3_4_6_otro.disabled=true;
+        // Si "No" está marcado, deshabilitar todos los radios e inputs
+        checkboxes.forEach(radio => {
+            radio.disabled = true;
+            radio.checked = false;
+            radio.required = false;
         });
-        inputs.forEach(input => {
-            input.disabled = true; // Deshabilitar inputs
-            input.value = ""; // Limpiar valores (opcional)
-            input.required = false; // Opcional: eliminar required
-        });
+      
     }
 }
+
+
 
 
 function valida_p3_4_7() {
@@ -2470,19 +2547,22 @@ function valida_p3_4_7() {
         respuesta = "N";
     }
 
-    const radios = document.querySelectorAll('.row348 input[type="radio"]');
-
+    const checkboxes = document.querySelectorAll('.row348 input[type="checkbox"]');
+    var otro = document.getElementById("p3_4_8_otro");
     // Habilita o deshabilita los radios según la respuesta seleccionada
     if (respuesta === "N") {
-        radios.forEach(radio => {
-            radio.disabled = false; 
-            radio.required = true; 
+        checkboxes.forEach(checkbox => {
+            checkbox.disabled = false; 
         });
+         otro.disabled=true;
+        otro.value="";
     } else if (respuesta === "S") {
-        radios.forEach(radio => {
-            radio.disabled = true; // Deshabilitar radios
-            radio.checked = false; // Limpia la selección (opcional)
-             radio.required = false; 
+        otro.disabled=true;
+        otro.value="";
+        checkboxes.forEach(checkbox => {
+            checkbox.disabled = true; // Deshabilitar radios
+            checkbox.checked = false; // Limpia la selección (opcional)
+             checkbox.required = false; 
         });
     }
 }
@@ -2520,7 +2600,7 @@ function valida_p3_4_6_otro() {
  
 
 function valida_p3_4_8_otro() {
-    const radioC = document.getElementById("p3_4_8_c");
+    const radioC = document.getElementById("p3_4_8_d");
     const textarea = document.getElementById("p3_4_8_otro");
 
     if (radioC.checked) {
@@ -2537,15 +2617,22 @@ function valida_p3_4_8_otro() {
 function valida_p4_1_oculta() {
     var siRadio = document.getElementById('p4_1_si');
     var noRadio = document.getElementById('p4_1_no');
+    var p4_3 = document.getElementById('p4_3');
     const noAdjuntarDiv = document.querySelector(".no_aplica4_2");
 
     if (siRadio.checked) {
 
         noAdjuntarDiv.style.display = "block";
-        
+        p4_3.required =true;
     } else if (noRadio.checked) {
 
         noAdjuntarDiv.style.display = "none";
+        p4_3.value="";
+        p4_3.required =false;
+    }else{
+        noAdjuntarDiv.style.display = "none";
+        p4_3.value="";
+        p4_3.required =false;
     }
 }
 
@@ -2636,7 +2723,8 @@ function guardar_modal_sec4_2() {
         p4_2_partidanac: $("#p4_2_partidanac").val(),
         p4_2_certinac: $("#p4_2_certinac").val(),
         p4_2_reniec: $("#p4_2_reniec").val(),
-        p4_2_defensoria: $("#p4_2_defensoria").val()
+        p4_2_defensoria: $("#p4_2_defensoria").val(), 
+        p4_2_amerita: $("#p4_2_amerita").val()
     };
 
     console.log("2");
@@ -3189,8 +3277,20 @@ document.getElementById("p6_4_1_d").addEventListener("change", validaP6_4_1_Disa
 document.getElementById("p6_4_2_cantidad").addEventListener("input", function () {
     const cantidad = parseInt(this.value) || 0; 
     const inputs = document.querySelectorAll(".row643 input"); 
-
+    const inputrow645 = document.querySelectorAll(".row645 input");
+    
     inputs.forEach(input => {
+        if (cantidad > 0) {
+            input.disabled = false; 
+            input.required = true;  
+        } else {
+            input.disabled = true;  
+            input.required = false; 
+            input.value = "";       
+        }
+    });
+    
+     inputrow645.forEach(input => {
         if (cantidad > 0) {
             input.disabled = false; 
             input.required = true;  
@@ -3311,6 +3411,7 @@ function valida_p6_4_7() {
     const radioSi = document.getElementById("p6_4_7_si");
     const radioNo = document.getElementById("p6_4_7_no");
     const p6_4_8_otro = document.getElementById("p6_4_8_otro");
+    
     let respuesta = null;
     if (radioSi && radioSi.checked) {
         respuesta = "S";
@@ -3319,11 +3420,23 @@ function valida_p6_4_7() {
     }
 
     const radios = document.querySelectorAll('.row648 input[type="radio"]');
+    const radios6413 = document.querySelectorAll('.row6413 input[type="radio"]');
+    const radios6415 = document.querySelectorAll('.row6415 input[type="radio"]');
 
     
     if (respuesta === "S") {
         radios.forEach(radio => {
             radio.disabled = false; 
+        });
+        
+        radios6413.forEach(radio => {
+            radio.disabled = false; 
+            radio.required = true; 
+        });
+        
+        radios6415.forEach(radio => {
+            radio.disabled = false;
+            radio.required = true; 
         });
      
     } else if (respuesta === "N") {
@@ -3332,6 +3445,18 @@ function valida_p6_4_7() {
          p6_4_8_otro.required=false;
          
         radios.forEach(radio => {
+            radio.disabled = true; 
+            radio.checked = false; 
+            radio.required = false; 
+        });
+        
+        radios6413.forEach(radio => {
+            radio.disabled = true; 
+            radio.checked = false; 
+            radio.required = false; 
+        });
+        
+        radios6415.forEach(radio => {
             radio.disabled = true; 
             radio.checked = false; 
             radio.required = false; 
@@ -3392,6 +3517,38 @@ function valida_p6_4_8_otro(){
     p6_4_8_otro.required= false;     
     p6_4_8_otro.disabled= true;
     p6_4_8_otro.value= "";
+   }     
+        
+}
+
+function valida645otro(){
+   var otroRadio = document.getElementById('p6_4_5_sis_respuesta_si');
+   var detalle= document.getElementById('p6_4_5a_otro');
+
+    if (otroRadio.checked){
+    
+    detalle.disabled= false;
+    detalle.required= true;    
+   }else{
+    detalle.required= false;     
+    detalle.disabled= true;
+    detalle.value= "";
+   }     
+        
+}
+
+function valida_p6_4_20_otro(){
+   var otroRadio = document.getElementById('p6_4_20_f');
+   var p6_4_20_otro= document.getElementById('p6_4_20_otro');
+
+    if (otroRadio.checked){
+    
+    p6_4_20_otro.disabled= false;
+    p6_4_20_otro.required= true;    
+   }else{
+    p6_4_20_otro.required= false;     
+    p6_4_20_otro.disabled= true;
+    p6_4_20_otro.value= "";
    }     
         
 }
@@ -3871,6 +4028,10 @@ function valida_p7_7_deshabilita() {
     // Obtiene los radio buttons por su ID
     const radioSi = document.getElementById("p7_7_si");
     const radioNo = document.getElementById("p7_7_no");
+     const radios78 = document.querySelectorAll('.row78 input[type="radio"]');
+     const radios79 = document.querySelectorAll('.row79 input[type="radio"]');
+     var p7_8_otro  = document.getElementById("p7_8_otro");
+     var p7_9_otro = document.getElementById("p7_9_otro");
 
     let respuesta = null;
     if (radioSi && radioSi.checked) {
@@ -3883,11 +4044,40 @@ function valida_p7_7_deshabilita() {
 
     if (respuesta === "S") {
         btn_file_s7_7_arch.disabled = false;
+        
+        radios78.forEach(radio => {
+            radio.disabled = false; 
+            radio.required = true; 
+        });
+        radios79.forEach(radio => {
+            radio.disabled = false; 
+            radio.required = true; 
+        });
+
     } else if (respuesta === "N") {
         btn_file_s7_7_arch.disabled = true;
+        p7_8_otro.disabled=true;
+        p7_8_otro.value="";
+        
+        p7_9_otro.disabled=true;
+        p7_9_otro.value="";
+        
+          radios78.forEach(radio => {
+            radio.disabled = true; 
+            radio.checked = false; 
+            radio.required = false; 
+        });
+        
+          radios79.forEach(radio => {
+            radio.disabled = true; 
+            radio.checked = false; 
+            radio.required = false; 
+        });
 
     }
 }
+
+
 
 
 function valida_p7_10_deshabilita() {
@@ -3952,7 +4142,15 @@ function valida_p8_1_deshabilita_radios() {
     const radioSi = document.getElementById("p8_1_si");
     const radioNo = document.getElementById("p8_1_no");
     const otro = document.getElementById("p8_2_otro");
+    const btn_file_s8_1_arch= document.getElementById("btn_file_s8_1_arch");
+    const btn_file_s8_2_arch= document.getElementById("btn_file_s8_2_arch");
 
+    var p8_4 = document.getElementById("p8_4");
+    var p8_2_otro = document.getElementById("p8_2_otro");
+    var p8_5_otro = document.getElementById("p8_5_otro");
+    var p8_7_otro = document.getElementById("p8_7_otro");
+    var p8_1_x = document.getElementById("p8_1_x"); 
+    
     let respuesta = null;
     if (radioSi && radioSi.checked) {
         respuesta = "S";
@@ -3960,22 +4158,86 @@ function valida_p8_1_deshabilita_radios() {
         respuesta = "N";
     }
 
-    const radios = document.querySelectorAll('.row82 input[type="radio"]');
+    const radios = document.querySelectorAll('.row82 input[type="checkbox"]');
+    
+        const radios83 = document.querySelectorAll('.row83 input[type="radio"]');
+        const radios85 = document.querySelectorAll('.row85 input[type="radio"]');
+        const radios86 = document.querySelectorAll('.row86 input[type="radio"]');
 
     if (respuesta === "S") {
-        radios.forEach(radio => {
+        p8_1_x.disabled = true;
+        p8_1_x.required = false;
+        p8_1_x.value="";
+        
+        p8_4.disabled=false;
+        p8_4.required= true;
+        
+        radios.forEach(checkbox => {
+            checkbox.disabled = false; 
+        });
+        
+        btn_file_s8_2_arch.disabled=false;
+        btn_file_s8_1_arch.disabled=false;
+        
+        radios83.forEach(radio => {
+            radio.disabled = false; 
+            radio.required = true; 
+        });
+        
+        radios85.forEach(radio => {
+            radio.disabled = false; 
+            radio.required = true; 
+        });
+        
+        radios86.forEach(radio => {
             radio.disabled = false; 
             radio.required = true; 
         });
      
     } else if (respuesta === "N") {
         
+        p8_1_x.disabled = false;
+        p8_1_x.required = true;
+        
+        p8_4.disabled=true;
+        p8_4.required= false;
+        p8_4.value="";
+        
+        p8_2_otro.disabled=true;
+        p8_2_otro.value="";
+        
+         p8_5_otro.disabled=true;
+        p8_5_otro.value="";
+        
+         p8_7_otro.disabled=true;
+        p8_7_otro.value="";
+        
+        btn_file_s8_2_arch.disabled=true;
+        btn_file_s8_1_arch.disabled=true;
+        
          otro.disabled=true;
          otro.value = "";
          otro.required=false;
          
          
-        radios.forEach(radio => {
+        radios.forEach(checkbox => {
+            checkbox.disabled = true; 
+            checkbox.checked = false; 
+        });
+        
+        radios83.forEach(radio => {
+            radio.disabled = true; 
+            radio.checked = false; 
+            radio.required = false; 
+        });
+        
+        radios85.forEach(radio => {
+            radio.disabled = true; 
+            radio.checked = false; 
+            radio.required = false; 
+        });
+        
+        radios86.forEach(radio => {
             radio.disabled = true; 
             radio.checked = false; 
             radio.required = false; 
@@ -4002,6 +4264,21 @@ function valida_p8_1_deshabilita_radios() {
  
  ////////////////////////////////////////
  
+  function valida_p8_12_otro(){
+    var otroRadio = document.getElementById('p8_12_d');
+    var otro= document.getElementById('p8_12_otro');
+ 
+     if (otroRadio.checked){
+     
+     otro.disabled= false;
+     otro.required= true;    
+    }else{
+     otro.required= false;     
+     otro.disabled= true;
+     otro.value= "";
+    }     
+         
+ }
  
  function valida_p8_5_otro(){
     var otroRadio = document.getElementById('p8_5_e');
@@ -4089,12 +4366,19 @@ function valida_p8_8_deshabilita_radios() {
     }
 
     const radios = document.querySelectorAll('.row88 input[type="radio"]');
+    const radios810 = document.querySelectorAll('.row810 input[type="radio"]');
 
     if (respuesta === "S") {
         radios.forEach(radio => {
             radio.disabled = false; 
             radio.required = true; 
         });
+        
+        radios810.forEach(radio => {
+            radio.disabled = false; 
+            radio.required = true; 
+        });
+     
      
     } else if (respuesta === "N") {
         
@@ -4109,6 +4393,11 @@ function valida_p8_8_deshabilita_radios() {
             radio.required = false; 
         });
         
+        radios810.forEach(radio => {
+            radio.disabled = true; 
+            radio.checked = false; 
+            radio.required = false; 
+        });
     }
 }
  
@@ -5003,31 +5292,41 @@ function eliminar_archivo_sec10_1_10 (id_archivo, id_ficha,cod_unico) {
 
 //////////////INIO///////////
 
+
+
 function valida_p10_1_11_estado_malo() {
-    var isMaloSelected = document.getElementById('p10_1_11_estado_c').checked;
-    var btn_file_s10_1_12_arch = document.getElementById('btn_file_s10_1_12_arch');
-    var rowElements = document.querySelectorAll('.row10112 input');
+    const radioSi = document.getElementById("p10_1_11_estado_c");
     var p10_1_12_otro = document.getElementById('p10_1_12_otro');
-
-    rowElements.forEach(function (element) {
-        element.disabled = !isMaloSelected;
-
-        if (!isMaloSelected) {
-            if (element.type === 'radio') {
-                element.checked = false;
-                element.required = true;
-            } else if (element.type === 'textarea') {
-                element.value = '';
-            }
-        }
-    });
-
-    if (!isMaloSelected) {
-        p10_1_12_otro.value = ""; // Limpiar el valor
-        p10_1_12_otro.disabled = true;
+    var btn_file_s10_1_12_arch = document.getElementById('btn_file_s10_1_12_arch');
+    
+    let respuesta = null;
+    if (radioSi && radioSi.checked) {
+        respuesta = "S";
+    } else  {
+        respuesta = "N";
     }
 
-    btn_file_s10_1_12_arch.disabled = !isMaloSelected;
+    const checkboxes = document.querySelectorAll('.row10112 input[type="checkbox"]');
+
+    
+    if (respuesta === "S") {
+        checkboxes.forEach(checkbox => {
+            checkbox.disabled = false; 
+        });
+      p10_1_12_otro.disabled= true;
+      btn_file_s10_1_12_arch.disabled=false;
+    } else if (respuesta === "N") {
+        checkboxes.forEach(checkbox => {
+            checkbox.disabled = true; 
+            checkbox.checked = false; 
+            checkbox.required = false; 
+        });
+        p10_1_12_otro.disabled= true;
+        p10_1_12_otro.value="";
+        
+        btn_file_s10_1_12_arch.disabled=true;
+    }
+  
 }
 
 
@@ -6007,15 +6306,60 @@ function eliminar_archivo_sec10_6_5 (id_archivo, id_ficha,cod_unico) {
     });
 }
 
+function valida1053(){
+ const siRadio = document.getElementById('p10_5_3_a');
+ const noRadio = document.getElementById('p10_5_3_b');
+ const Radios = document.querySelectorAll('.row1054_extend input[type="radio"]');
+ const div_s10_5_4_arch = document.getElementById('div_s10_5_4_arch');
+ siRadio.addEventListener('change', () => {
+   if (siRadio.checked) {
+     Radios.forEach(radio => {
+       radio.disabled = false;
+       radio.required = true;
+     });
+     div_s10_5_4_arch.disabled = false;
+   
+   }
+ });
+
+ noRadio.addEventListener('change', () => {
+   if (noRadio.checked) {
+     Radios.forEach(radio => {
+       radio.disabled = true;
+       radio.checked = false;
+        radio.required = false;
+     });
+     
+     div_s10_5_4_arch.disabled = true;
+   }
+ });
+}
+
+document.addEventListener('DOMContentLoaded', valida1053);
 
 function valida1071() {
  const siRadio = document.getElementById('p10_7_1_a');
  const noRadio = document.getElementById('p10_7_1_b');
  const operativosRadios = document.querySelectorAll('.row1072 input[type="radio"]');
+ 
+  const operativosRadios73 = document.querySelectorAll('.row1073 input[type="radio"]');
+ const operativosRadios74 = document.querySelectorAll('.row1074 input[type="radio"]');
+
+
 
  siRadio.addEventListener('change', () => {
    if (siRadio.checked) {
      operativosRadios.forEach(radio => {
+       radio.disabled = false;
+       radio.required = true;
+     });
+     
+      operativosRadios73.forEach(radio => {
+       radio.disabled = false;
+       radio.required = true;
+     });
+     
+      operativosRadios74.forEach(radio => {
        radio.disabled = false;
        radio.required = true;
      });
@@ -6030,6 +6374,17 @@ function valida1071() {
         radio.required = false;
      });
      
+      operativosRadios73.forEach(radio => {
+       radio.disabled = true;
+       radio.checked = false;
+        radio.required = false;
+     });
+     
+      operativosRadios74.forEach(radio => {
+       radio.disabled = true;
+       radio.checked = false;
+        radio.required = false;
+     });
    }
  });
 }
@@ -6227,4 +6582,181 @@ function valida1075() {
 }
 
 document.addEventListener('DOMContentLoaded', valida1075);
+
+function toggleCheckboxes() {
+    const inputValue = document.getElementById("p3_1_1").value;
+    const checkboxes = document.querySelectorAll(".row311x input[type='checkbox']");
+    
+    // Obtener todos los textareas (puedes ajustar los IDs o clases si son diferentes)
+    const textareas = [
+        document.getElementById("p3_1_2_otro"),
+        document.getElementById("p3_1_3_otro"),
+        document.getElementById("p3_1_4_otro") , 
+         document.getElementById("p3_1_5_otro") 
+    ];
+
+
+    checkboxes.forEach(checkbox => {
+        if (inputValue > 0) {
+            checkbox.disabled = false; 
+        } else {
+            checkbox.disabled = true; 
+            checkbox.checked = false; 
+        }
+    });
+
+    textareas.forEach(textarea => {
+        if (inputValue === "" || inputValue == 0) {
+            textarea.disabled = true;  
+            textarea.value = ""; 
+        } else {
+            textarea.disabled = true; // Habilitar si hay un valor diferente a vacío o 0
+        }
+    });
+}
+
+// Agregar el evento para detectar cambios en el input
+document.getElementById("p3_1_1").addEventListener("input", toggleCheckboxes);
+
+
+
+     
+     $('#modal_sec4_2').on('shown.bs.modal', function () {
+    const selectElement = document.getElementById("p4_2_defensoria");
+    const textareaElement = document.getElementById("p4_2_amerita");
+
+    if (selectElement && textareaElement) {
+        selectElement.addEventListener("change", function () {
+            const selectValue = this.value;
+
+            if (selectValue === "S") {
+                textareaElement.disabled = false;
+                textareaElement.required = true;
+            } else {
+                textareaElement.disabled = true;
+                textareaElement.value = "";
+                textareaElement.required = false;
+            }
+        });
+    }
+});
+
+
+function valida_p4_4_oculta() {
+    var siRadio = document.getElementById('p4_4_si');
+    var noRadio = document.getElementById('p4_4_no');
+    const noAdjuntarDiv = document.querySelector(".no_aplica4_4");
+
+    if (siRadio.checked) {
+
+        noAdjuntarDiv.style.display = "block";
+    } else if (noRadio.checked) {
+
+        noAdjuntarDiv.style.display = "none";
+    }else{
+        noAdjuntarDiv.style.display = "none";
+    }
+}
+
+
+function valida_p4_4_registros() {
+    const tableBody = document.querySelector("#div_sec4_4 tbody");
+    const validationMessage = document.getElementById("validationMessage4_4");
+    const noAdjuntarDiv = document.querySelector(".no_aplica4_4");
+    var siRadio = document.getElementById('p4_4_si');
+
+
+    if (tableBody && tableBody.rows.length > 0) {
+         noAdjuntarDiv.style.display = "block";
+        validationMessage.style.display = "block";
+        document.querySelector("#p4_4_no").checked = false;
+        siRadio.checked= true;
+    } else {
+        validationMessage.style.display = "none";
+    }
+}
+
+
+function eliminar_archivo_sec8_1(id_archivo, id_ficha,cod_unico) {
+
+    $.ajax({
+        url: urlx + "/ajaxEliminarProyectoSec8_1",
+        type: 'POST',
+        data: {
+            id_archivo: id_archivo,
+            id_ficha: id_ficha,
+            cod_unico: cod_unico
+        },
+        success: function (data, textStatus, jqXHR) {
+
+            $("#table_ficha_s8_1_arch").html(data);
+//            $("#s7_p01_1").val($("#sizeFichaS7Proyecto").val());
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+
+            if (jqXHR.status == 401) {
+                alert("Su sesi\u00F3n ha finalizado");
+            } else {
+                alert("Ocurrio un error al cargar");
+            }
+        }
+    });
+}
+
+
+
+function valida_p81_registros() {
+    const tableBody = document.querySelector("#div_s8_1_arch tbody");
+    const validationMessage = document.getElementById("validationMessage81");
+    var siRadio = document.getElementById('p8_1_si');
+    const validationMessage82 = document.getElementById("validationMessage82");
+ const tableBody82 = document.querySelector("#div_s8_2_arch tbody");
+ 
+ 
+
+    if (tableBody && tableBody.rows.length > 0) {
+        validationMessage.style.display = "block";
+        document.querySelector("#p8_1_no").checked = false;
+        siRadio.checked= true;
+    } else {
+        validationMessage.style.display = "none";
+    }
+    
+      if (tableBody82 && tableBody82.rows.length > 0) {
+        validationMessage82.style.display = "block";
+        document.querySelector("#p8_1_no").checked = false;
+        siRadio.checked= true;
+    } else {
+        validationMessage82.style.display = "none";
+    }
+}
+
+
+function eliminar_archivo_sec8_2 (id_archivo, id_ficha,cod_unico) {
+
+    $.ajax({
+        url: urlx + "/ajaxEliminarProyectoSec8_2",
+        type: 'POST',
+        data: {
+            id_archivo: id_archivo,
+            id_ficha: id_ficha,
+            cod_unico: cod_unico
+        },
+        success: function (data, textStatus, jqXHR) {
+
+            $("#table_ficha_s8_2_arch").html(data);
+//            $("#s7_p01_1").val($("#sizeFichaS7Proyecto").val());
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+
+            if (jqXHR.status == 401) {
+                alert("Su sesi\u00F3n ha finalizado");
+            } else {
+                alert("Ocurrio un error al cargar");
+            }
+        }
+    });
+}
 

@@ -50,6 +50,10 @@ public class Demuna_Ficha_S6Entity implements Serializable {
     private Integer p6_3_total;
 
     private String p6_4_1;
+    private String p6_4_1_a;
+    private String p6_4_1_b;
+    private String p6_4_1_c;
+    private String p6_4_1_d;
     private Integer p6_4_1_cantidad_a;	
     private Integer p6_4_1_cantidad_b;	
     private Integer p6_4_1_cantidad_c;	
@@ -77,6 +81,8 @@ public class Demuna_Ficha_S6Entity implements Serializable {
     private String p6_4_9_b;
     private String p6_4_9_c;
     private String p6_4_9_d;
+    private String p6_4_9_e;
+    private String p6_4_9_f;
     private String p6_4_9_otro;
     private String p6_4_10;
     private String p6_4_11;
@@ -85,6 +91,8 @@ public class Demuna_Ficha_S6Entity implements Serializable {
     private String p6_4_12_b;
     private String p6_4_12_c;
     private String p6_4_12_d;
+    private String p6_4_12_e;
+    private String p6_4_12_f;
     private String p6_4_12_otro;
 
     private String p6_4_13;
@@ -98,8 +106,13 @@ public class Demuna_Ficha_S6Entity implements Serializable {
     private String p6_4_18;
     private String p6_4_19;
     private String p6_4_20;
-    private String p6_4_21;
+    private String p6_4_20_otro;
+    private String p6_4_21_a;
+    private String p6_4_21_b;
+    private String p6_4_21_c;
+    private String p6_4_21_d;
     private String p6_4_22;
+    private String p6_4_5a_otro;
 
 
 }
